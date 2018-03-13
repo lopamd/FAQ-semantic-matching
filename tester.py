@@ -6,3 +6,6 @@ feature_extractor = base_objects.NTLKFeatureExtraction(faqs)
 
 for qatokens in feature_extractor.tokens:
     print(qatokens)
+
+for qalemmas in feature_extractor.lemmas:
+    print(qalemmas)

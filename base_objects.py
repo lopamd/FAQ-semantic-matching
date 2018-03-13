@@ -1,5 +1,6 @@
 import nltk
 nltk.download('punkt')
+nltk.download('wordnet')
 
 class QAPair:
      def __init__(self, question, answer):
@@ -54,3 +55,9 @@ class NTLKFeatureExtraction( QAFeatureExtraction ):
             question_tokens = nltk.word_tokenize(qa.question)
             answer_tokens = nltk.word_tokenize(qa.answer)
             self._tokens.append((question_tokens, answer_tokens))
+            
+    def _lemmatize( self ):
+        self._lemmas = []
+        lemmatizer = nltk.stem.wordnet.WordNetLemmatizer()
+        for tokenpair in self.tokens:
+            self._lemmas.append(([lemmatizer.lemmatize(x) for x in tokenpair[0]], [lemmatizer.lemmatize(x) for x in tokenpair[1]]))
