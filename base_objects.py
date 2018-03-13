@@ -45,7 +45,7 @@ class QAFeatureExtraction( object ):
             self._stem()
         return self._stems
         
-class NTLKFeatureExtraction( QAFeatureExtraction ):
+class NLTKFeatureExtraction( QAFeatureExtraction ):
     def __init__( self, qa_pairs ):
         super().__init__(qa_pairs)
         
