@@ -1,18 +1,14 @@
 import csv
+import base_objects
 
 inputfile = 'input/Java_FAQ.csv'
-
-class QAPair:
-     def __init__(self, question, answer):
-         self.question = question
-         self.answer = answer
 
 class FAQReader( object ):
     """Abstract class. Please implement fetch to return a list of QAPairs."""
     def fetch( self ):
         raise NotImplementedError("Class %s doesn't implement fetch()" % (self.__class__.__name__))
         
-class CSVFAQReader(FAQReader):
+class CSVFAQReader( FAQReader ):
     def __init__(self, csvfilename):
         self.csvfilename = csvfilename
 
@@ -21,7 +17,7 @@ class CSVFAQReader(FAQReader):
         with open(self.csvfilename) as csvfile:
             areader = csv.reader(csvfile)
             for row in areader:
-                faqs.append(QAPair(row[0].strip(), row[1].strip()))
+                faqs.append(base_objects.QAPair(row[0].strip(), row[1].strip()))
         return faqs
         
         
