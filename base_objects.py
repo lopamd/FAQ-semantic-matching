@@ -60,4 +60,14 @@ class NLTKFeatureExtraction( QAFeatureExtraction ):
         self._lemmas = []
         lemmatizer = nltk.stem.wordnet.WordNetLemmatizer()
         for tokenpair in self.tokens:
-            self._lemmas.append(([lemmatizer.lemmatize(x) for x in tokenpair[0]], [lemmatizer.lemmatize(x) for x in tokenpair[1]]))
+            question_lemmas = [lemmatizer.lemmatize(x) for x in tokenpair[0]]
+            answer_lemmas = [lemmatizer.lemmatize(x) for x in tokenpair[1]]
+            self._lemmas.append((question_lemmas, answer_lemmas))
+            
+    def _stem( self ):
+        self._stems = []
+        stemmer = nltk.stem.PorterStemmer()
+        for tokenpair in self.tokens:
+            question_stems = [stemmer.stem(x) for x in tokenpair[0]]
+            answer_stems = [stemmer.stem(x) for x in tokenpair[1]]
+            self._stems.append((question_stems, answer_stems))
