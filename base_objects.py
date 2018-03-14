@@ -1,6 +1,9 @@
 import nltk
 nltk.download('punkt')
 nltk.download('wordnet')
+nltk.download('stopwords')
+
+default_locale = 'english'
 
 class QAPair:
      def __init__(self, question, answer):
@@ -51,9 +54,10 @@ class NLTKFeatureExtraction( QAFeatureExtraction ):
         
     def _tokenize( self ):
         self._tokens = []
+        stops = set(nltk.corpus.stopwords.words(default_locale))
         for qa in self.qa_pairs:
-            question_tokens = nltk.word_tokenize(qa.question)
-            answer_tokens = nltk.word_tokenize(qa.answer)
+            question_tokens = [w for w in nltk.word_tokenize(qa.question) if w not in stops]
+            answer_tokens = [w for w in nltk.word_tokenize(qa.answer) if w not in stops]
             self._tokens.append((question_tokens, answer_tokens))
             
     def _lemmatize( self ):
