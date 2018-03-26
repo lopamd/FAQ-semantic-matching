@@ -15,3 +15,6 @@ for qastem in feature_extractor.stems:
     
 for postag in feature_extractor.pos_tags:
     print(postag)
+    
+for graphs in feature_extractor.dependency_graphs:
+    print(graphs)

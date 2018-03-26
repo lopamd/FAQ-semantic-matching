@@ -1,7 +1,6 @@
 import csv
 import base_objects
-
-inputfile = 'input/Java_FAQ.csv'
+import nlp_config
 
 class FAQReader( object ):
     """Abstract class. Please implement fetch to return a list of QAPairs."""
@@ -22,7 +21,7 @@ class CSVFAQReader( FAQReader ):
         
         
 def getFAQs():
-    faqreader = CSVFAQReader(inputfile)
+    faqreader = CSVFAQReader(nlp_config.faq_input_file)
     return faqreader.fetch()
   
 #Usage:

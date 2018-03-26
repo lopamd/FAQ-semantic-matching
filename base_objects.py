@@ -11,6 +11,7 @@ class QAFeatureExtraction( object ):
         self._lemmas = None
         self._stems = None
         self._pos_tags = None
+        self._dependency_graphs = None
 
     '''Private abstract function to tokenize the questions and answers'''
     def _tokenize( self ):
@@ -27,6 +28,10 @@ class QAFeatureExtraction( object ):
     '''Private abstract function to pos tag the questions and answers''' 
     def _pos_tag( self ):
         raise NotImplementedError("Class %s doesn't implement _pos_tag()" % (self.__class__.__name__))
+        
+    '''Private abstract function to graph the dependencies for the questions and answers''' 
+    def _graph_dependencies( self ):
+        raise NotImplementedError("Class %s doesn't implement _graph_dependencies()" % (self.__class__.__name__))
         
     @property
     def tokens(self):
@@ -51,3 +56,9 @@ class QAFeatureExtraction( object ):
         if self._pos_tags is None:
             self._pos_tag()
         return self._pos_tags
+        
+    @property
+    def dependency_graphs(self):
+        if self._dependency_graphs is None:
+            self._graph_dependencies()
+        return self._dependency_graphs
