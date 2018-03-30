@@ -8,14 +8,19 @@ class QAFeatureExtraction( object ):
     def __init__( self, qa_pairs ):
         self.qa_pairs = qa_pairs
         self._tokens = None
+        self._sentence_tokens = None
         self._lemmas = None
         self._stems = None
         self._pos_tags = None
         self._dependency_graphs = None
 
-    '''Private abstract function to tokenize the questions and answers'''
+    '''Private abstract function to tokenize the questions and answers on word boundaries'''
     def _tokenize( self ):
         raise NotImplementedError("Class %s doesn't implement _tokenize()" % (self.__class__.__name__))
+
+    '''Private abstract function to tokenize the questions and answers on sentence boundaries'''
+    def _tokenize_sentences( self ):
+        raise NotImplementedError("Class %s doesn't implement _tokenize_sentences()" % (self.__class__.__name__))
 
     '''Private abstract function to lemmatize the questions and answers'''
     def _lemmatize( self ):
@@ -38,6 +43,12 @@ class QAFeatureExtraction( object ):
         if self._tokens is None:
             self._tokenize()
         return self._tokens
+        
+    @property
+    def sentence_tokens(self):
+        if self._sentence_tokens is None:
+            self._tokenize_sentences()
+        return self._sentence_tokens
     
     @property
     def lemmas(self):

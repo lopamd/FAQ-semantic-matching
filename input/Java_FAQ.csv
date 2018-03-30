@@ -159,7 +159,7 @@ How can we make copy of a java object?,"
 We can use the concept of cloning to create copy of an object. Using clone, we create copies with the actual state of an object.
 
 Clone() is a method of Cloneable interface and hence, Cloneable interface needs to be implemented for making object copies."
-What’s difference between Stack and Queue?,Stack and Queue both are used as placeholder for a collection of data. The primary difference between a stack and a queue is that stack is based on Last in First out (LIFO) principle while a queue is based on FIFO (First In First Out) principle.
+What’s the difference between Stack and Queue?,Stack and Queue both are used as placeholder for a collection of data. The primary difference between a stack and a queue is that stack is based on Last in First out (LIFO) principle while a queue is based on FIFO (First In First Out) principle.
 Can we call a non-static method from inside a static method?,"Non-Static methods are owned by objects of a class and have object level scope and in order to call the non-Static methods from a static block (like from a static main method), an object of the class needs to be created first. Then using object reference, these methods can be invoked."
 What’s the difference between comparison done by equals method and == operator?,"
 In Java, equals() method is used to compare the contents of two string objects and returns true if the two have same value while == operator compares the references of two string objects."

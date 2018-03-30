@@ -18,3 +18,6 @@ for postag in feature_extractor.pos_tags:
     
 for graphs in feature_extractor.dependency_graphs:
     print(graphs)
+
+#for getting the wordnet synset
+#https://stackoverflow.com/questions/15586721/wordnet-lemmatization-and-pos-tagging-in-python

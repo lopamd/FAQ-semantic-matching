@@ -20,6 +20,13 @@ class NLTKFeatureExtraction( base_objects.QAFeatureExtraction ):
             question_tokens = [w for w in nltk.word_tokenize(qa.question) if w not in stops]
             answer_tokens = [w for w in nltk.word_tokenize(qa.answer) if w not in stops]
             self._tokens.append((question_tokens, answer_tokens))
+       
+    def _tokenize_sentences( self ):
+        self._sentence_tokens = []
+        for qa in self.qa_pairs:
+            question_sentences = nltk.sent_tokenize(qa.question)
+            answer_sentences = nltk.sent_tokenize(qa.answer)
+            self._sentence_tokens.append((question_sentences, answer_sentences))
             
     def _lemmatize( self ):
         self._lemmas = []
@@ -39,14 +46,16 @@ class NLTKFeatureExtraction( base_objects.QAFeatureExtraction ):
             
     def _pos_tag( self ):
         self._pos_tags = []
-        for tokenpair in self.tokens:
-            question_pos_tags = nltk.pos_tag(tokenpair[0])
-            answer_pos_tags = nltk.pos_tag(tokenpair[1])
+        for tokenpair in self.sentence_tokens:
+            question_word_tokens = [nltk.word_tokenize(sentence) for sentence in tokenpair[0]]
+            answer_word_tokens = [nltk.word_tokenize(sentence) for sentence in tokenpair[1]]
+            question_pos_tags = [nltk.pos_tag(sentence) for sentence in question_word_tokens]
+            answer_pos_tags = [nltk.pos_tag(sentence) for sentence in answer_word_tokens]
             self._pos_tags.append((question_pos_tags, answer_pos_tags))
     
     def _graph_dependencies( self ):
         self._dependency_graphs = []
-        for qa in self.qa_pairs:
-            question_graph = dependency_parser.raw_parse(qa.question)
-            answer_graph = dependency_parser.raw_parse(qa.answer)
+        for tokenpair in self.sentence_tokens:
+            question_graph = [dependency_parser.parse(sentence) for sentence in tokenpair[0]]
+            answer_graph = [dependency_parser.parse(sentence) for sentence in tokenpair[1]]
             self._dependency_graphs.append((question_graph, answer_graph))
