@@ -2,7 +2,7 @@ import base_objects
 import nlp_config
 import nltk
 from nltk.parse.stanford import StanfordDependencyParser
-from nltk.corpus import wordnet
+from nltk.corpus import wordnet as wn
 nltk.download('punkt')
 nltk.download('wordnet')
 nltk.download('stopwords')
@@ -11,8 +11,8 @@ nltk.download('averaged_perceptron_tagger')
 dependency_parser = StanfordDependencyParser(path_to_jar=nlp_config.path_to_stanford_jar, path_to_models_jar=nlp_config.path_to_stanford_models_jar)
 
 def penn2morphy(penntag, returnNone=False):
-    morphy_tag = {'NN':wordnet.NOUN, 'JJ':wordnet.ADJ,
-                  'VB':wordnet.VERB, 'RB':wordnet.ADV}
+    morphy_tag = {'NN':wn.NOUN, 'JJ':wn.ADJ,
+                  'VB':wn.VERB, 'RB':wn.ADV}
     try:
         return morphy_tag[penntag[:2]]
     except:
