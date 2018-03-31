@@ -12,12 +12,12 @@ for qalemma in feature_extractor.lemmas:
     
 for qastem in feature_extractor.stems:
     print(qastem)
-    
+   
 for postag in feature_extractor.pos_tags:
     print(postag)
     
 for graphs in feature_extractor.dependency_graphs:
     print(graphs)
 
-#for getting the wordnet synset
-#https://stackoverflow.com/questions/15586721/wordnet-lemmatization-and-pos-tagging-in-python
+for syns in feature_extractor.synsets:
+    print(syns)

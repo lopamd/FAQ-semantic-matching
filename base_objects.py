@@ -13,6 +13,7 @@ class QAFeatureExtraction( object ):
         self._stems = None
         self._pos_tags = None
         self._dependency_graphs = None
+        self._synsets = None
 
     '''Private abstract function to tokenize the questions and answers on word boundaries'''
     def _tokenize( self ):
@@ -37,6 +38,10 @@ class QAFeatureExtraction( object ):
     '''Private abstract function to graph the dependencies for the questions and answers''' 
     def _graph_dependencies( self ):
         raise NotImplementedError("Class %s doesn't implement _graph_dependencies()" % (self.__class__.__name__))
+        
+    '''Private abstract function to get wordnet synsets for the lemmas in the questions and answers''' 
+    def _get_synsets( self ):
+        raise NotImplementedError("Class %s doesn't implement _get_synsets()" % (self.__class__.__name__))
         
     @property
     def tokens(self):
@@ -73,3 +78,9 @@ class QAFeatureExtraction( object ):
         if self._dependency_graphs is None:
             self._graph_dependencies()
         return self._dependency_graphs
+        
+    @property
+    def synsets(self):
+        if self._synsets is None:
+            self._get_synsets()
+        return self._synsets
