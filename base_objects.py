@@ -14,6 +14,7 @@ class QAFeatureExtraction( object ):
         self._pos_tags = None
         self._dependency_graphs = None
         self._synsets = None
+        self._bow = None #This will hold a List of Counter object of each FAQ
 
     '''Private abstract function to tokenize the questions and answers on word boundaries'''
     def _tokenize( self ):
@@ -43,6 +44,10 @@ class QAFeatureExtraction( object ):
     def _get_synsets( self ):
         raise NotImplementedError("Class %s doesn't implement _get_synsets()" % (self.__class__.__name__))
         
+    '''Private abstract function to get bag of words the questions and answers''' 
+    def _get_bow( self ):
+        raise NotImplementedError("Class %s doesn't implement _get_synsets()" % (self.__class__.__name__))
+    
     @property
     def tokens(self):
         if self._tokens is None:
@@ -84,3 +89,8 @@ class QAFeatureExtraction( object ):
         if self._synsets is None:
             self._get_synsets()
         return self._synsets
+    @property
+    def bow(self):
+        if self._bow is None:
+            self._get_bow()
+        return self._bow

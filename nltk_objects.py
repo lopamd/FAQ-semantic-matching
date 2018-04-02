@@ -1,6 +1,7 @@
 import base_objects
 import nlp_config
 import nltk
+from collections import Counter
 from nltk.parse.stanford import StanfordDependencyParser
 from nltk.corpus import wordnet as wn
 nltk.download('punkt')
@@ -24,7 +25,11 @@ def get_synset_name(lemma, pos, num=1):
 class NLTKFeatureExtraction( base_objects.QAFeatureExtraction ):
     def __init__( self, qa_pairs ):
         super().__init__(qa_pairs)
-       
+    
+    '''
+    TODO: We may need to refactor rest of the functions as well if we have extract the features for given quesiton
+          The other approach is to not make answer mandatory so that we can extract features only for questions!
+    '''
     def __tokenize( self, inSent):
         stops = set(nltk.corpus.stopwords.words(nlp_config.default_locale))
         tokens = [w for w in nltk.word_tokenize(inSent) if w not in stops]
@@ -36,14 +41,20 @@ class NLTKFeatureExtraction( base_objects.QAFeatureExtraction ):
             question_tokens = self.__tokenize(qa.question)
             answer_tokens = self.__tokenize(qa.answer)
             self._tokens.append((question_tokens, answer_tokens))
-       
+
+    def _get_bow( self ):
+         self._bow = []
+         for tokenpair in self.tokens:
+            #FIXME: We need to create one bow for both q & a ??
+            self._bow.append(Counter(tokenpair[0] + tokenpair[1]))
+
     def _tokenize_sentences( self ):
         self._sentence_tokens = []
         for qa in self.qa_pairs:
             question_sentences = nltk.sent_tokenize(qa.question)
             answer_sentences = nltk.sent_tokenize(qa.answer)
             self._sentence_tokens.append((question_sentences, answer_sentences))
-            
+ 
     def _lemmatize( self ):
         self._lemmas = []
         lemmatizer = nltk.stem.wordnet.WordNetLemmatizer()

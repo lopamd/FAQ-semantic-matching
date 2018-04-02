@@ -7,6 +7,9 @@ feature_extractor = nltk_objects.NLTKFeatureExtraction(faqs)
 for qatoken in feature_extractor.tokens:
     print(qatoken)
 
+for qabow in feature_extractor.bow:
+    print(qabow)
+
 for qalemma in feature_extractor.lemmas:
     print(qalemma)
     
@@ -21,3 +24,4 @@ for graphs in feature_extractor.dependency_graphs:
 
 for syns in feature_extractor.synsets:
     print(syns)
+
