@@ -13,7 +13,7 @@ class CSVFAQReader( FAQReader ):
 
     def fetch( self ):
         faqs = []
-        with open(self.csvfilename) as csvfile:
+        with open(self.csvfilename, 'r', newline='', encoding='mac_roman') as csvfile:
             areader = csv.reader(csvfile)
             for row in areader:
                 faqs.append(base_objects.QAPair(row[0].strip(), row[1].strip()))
