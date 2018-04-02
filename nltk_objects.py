@@ -24,13 +24,17 @@ def get_synset_name(lemma, pos, num=1):
 class NLTKFeatureExtraction( base_objects.QAFeatureExtraction ):
     def __init__( self, qa_pairs ):
         super().__init__(qa_pairs)
-        
+       
+    def __tokenize( self, inSent):
+        stops = set(nltk.corpus.stopwords.words(nlp_config.default_locale))
+        tokens = [w for w in nltk.word_tokenize(inSent) if w not in stops]
+        return tokens
+  
     def _tokenize( self ):
         self._tokens = []
-        stops = set(nltk.corpus.stopwords.words(nlp_config.default_locale))
         for qa in self.qa_pairs:
-            question_tokens = [w for w in nltk.word_tokenize(qa.question) if w not in stops]
-            answer_tokens = [w for w in nltk.word_tokenize(qa.answer) if w not in stops]
+            question_tokens = self.__tokenize(qa.question)
+            answer_tokens = self.__tokenize(qa.answer)
             self._tokens.append((question_tokens, answer_tokens))
        
     def _tokenize_sentences( self ):
