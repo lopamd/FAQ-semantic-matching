@@ -7,6 +7,9 @@ feature_extractor = nltk_objects.NLTKFeatureExtraction(faqs)
 for qatoken in feature_extractor.tokens:
     print(qatoken)
 
+for qatoken in feature_extractor.sentence_tokens:
+    print(qatoken)
+
 for qabow in feature_extractor.bow:
     print(qabow)
 
