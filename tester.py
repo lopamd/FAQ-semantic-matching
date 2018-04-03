@@ -24,4 +24,3 @@ for graphs in feature_extractor.dependency_graphs:
 
 for syns in feature_extractor.synsets:
     print(syns)
-

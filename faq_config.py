@@ -1,6 +1,7 @@
 import csv
 import base_objects
 import nlp_config
+import sys
 
 class FAQReader( object ):
     """Abstract class. Please implement fetch to return a list of QAPairs."""
@@ -13,7 +14,8 @@ class CSVFAQReader( FAQReader ):
 
     def fetch( self ):
         faqs = []
-        with open(self.csvfilename, 'r', newline='', encoding='mac_roman') as csvfile:
+        encoding = 'mac_roman' if sys.platform == 'darwin' else None
+        with open(self.csvfilename, encoding=encoding) as csvfile:
             areader = csv.reader(csvfile)
             for row in areader:
                 faqs.append(base_objects.QAPair(row[0].strip(), row[1].strip()))

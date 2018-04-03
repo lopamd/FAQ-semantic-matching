@@ -30,16 +30,12 @@ class NLTKFeatureExtraction( base_objects.QAFeatureExtraction ):
     TODO: We may need to refactor rest of the functions as well if we have extract the features for given quesiton
           The other approach is to not make answer mandatory so that we can extract features only for questions!
     '''
-    def __tokenize( self, inSent):
-        stops = set(nltk.corpus.stopwords.words(nlp_config.default_locale))
-        tokens = [w for w in nltk.word_tokenize(inSent) if w not in stops]
-        return tokens
-  
     def _tokenize( self ):
         self._tokens = []
+        stops = set(nltk.corpus.stopwords.words(nlp_config.default_locale))
         for qa in self.qa_pairs:
-            question_tokens = self.__tokenize(qa.question)
-            answer_tokens = self.__tokenize(qa.answer)
+            question_tokens = [w for w in nltk.word_tokenize(qa.question) if w not in stops]
+            answer_tokens = [w for w in nltk.word_tokenize(qa.answer) if w not in stops]
             self._tokens.append((question_tokens, answer_tokens))
 
     def _get_bow( self ):
