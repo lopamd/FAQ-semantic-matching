@@ -89,6 +89,7 @@ class QAFeatureExtraction( object ):
         if self._synsets is None:
             self._get_synsets()
         return self._synsets
+
     @property
     def bow(self):
         if self._bow is None:
