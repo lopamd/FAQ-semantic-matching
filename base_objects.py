@@ -2,7 +2,9 @@ class QAPair:
      def __init__(self, question, answer):
          self.question = question
          self.answer = answer
-         
+     def __str__(self):
+         return "Question: ["+self.question+"] [Answer: "+self.answer+"]"
+                  
 class QAFeatureExtraction( object ):
     '''qa_pairs is a list of QAPair objects'''
     def __init__( self, qa_pairs ):
