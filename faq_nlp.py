@@ -17,7 +17,7 @@ def main():
 
     user_q = input("Input your question:")
     
-    #FIXME: It has to be added to the empty list because nltk_objct operats on the list
+    #FIXME: It has to be added to the empty list because nltk_object operates on the list
     #Alt: Alternate approach. Only call __tokenize(). But move stops to a class variable.
 
     user_qa = [base_objects.QAPair(user_q, "")]
