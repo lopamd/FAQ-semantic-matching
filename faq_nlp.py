@@ -2,12 +2,6 @@ import nltk_objects
 import faq_config
 import base_objects
 
-
-
-
-
-
-
 def main():
 
     print("****** Hummingbird FAQ engine powered by NLTK *********")
@@ -30,8 +24,6 @@ def main():
     user_feat_extractor = nltk_objects.NLTKFeatureExtraction(user_qa)
     print(user_feat_extractor.tokens)
     print(user_feat_extractor.bow)
- 
- 
 
 if __name__ == "__main__":
     main()

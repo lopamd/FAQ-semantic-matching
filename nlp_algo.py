@@ -1,12 +1,12 @@
 class NLPAlgorithm:
     def __init(self, uquestion):
-	
-	self.user_question = uquestion
+        self.user_question = uquestion
         #This will contain the evaluation score
         self.score = None
 
         #Final results
         self.results = None
+        
     '''Private abstract function to implement the actual algorithm'''
     def _compute(self):
         raise NotImplementedError("Class %s doesn't implement _compute()" % (self.__class__.__name__))
@@ -17,7 +17,7 @@ class NLPAlgorithm:
 
     '''Function to print the output'''
     def _print(self):
-        print("Final Score is")
+        print("Final Score is " + self.score)
 
 class BOWAlgorithm(NLPAlgorithm):
     def __init__(self, uquestion):
