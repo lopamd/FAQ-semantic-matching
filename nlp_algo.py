@@ -1,6 +1,7 @@
 class NLPAlgorithm:
-    def __init(self, uquestion):
+    def __init__(self, uquestion):
         self.user_question = uquestion
+        
         #This will contain the evaluation score
         self.score = None
 
@@ -23,8 +24,8 @@ class BOWAlgorithm(NLPAlgorithm):
     def __init__(self, uquestion):
         super().__init__(uquestion)
 
-    def _compute():
+    def _compute(self):
         pass
     
-    def _evaluate():
+    def _evaluate(self):
         pass
