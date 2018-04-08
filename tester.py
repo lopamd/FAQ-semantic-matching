@@ -27,3 +27,16 @@ for graphs in feature_extractor.dependency_graphs:
 
 for syns in feature_extractor.synsets:
     print(syns)
+
+'''
+Test cases:
+
+Mandatory for Q2:
+1. Exact same faq question in the input: It should return the same answer
+2. Couple of words missing: It should return the same answer
+3. Words jumbled or transposed: It should return the same answer
+4. Synonyms or similar semantic meaing: Doesn't expect to return correct answer
+
+Q3: Should show imporovements over Q2
+TODO: Write the updated test cases here
+'''
