@@ -7,6 +7,19 @@ from nlp_algo import BOWAlgorithm
 
 RESULTS_TOPN = 10
 
+def print_results(user_q, resultDict):
+    sortedResults = sorted(resultDict.items(), key=lambda x:x[1], reverse=True)
+    count = 0
+
+    print("***********************************************************************")
+    print("Given user question: ", user_q)
+    print("***********************************************************************")
+    print("Top 10 results from Bag of words algorithm are:")
+    for qa_pair,score in sortedResults:
+        if count < RESULTS_TOPN:
+            print(qa_pair.answer,score)
+            count = count + 1
+
 def main():
 
     print("****** Hummingbird FAQ engine powered by NLTK *********")
@@ -33,20 +46,13 @@ def main():
     #print(user_feat_extractor.tokens)
     #print(user_feat_extractor.bow)
 
+    '''
+    BOW specific implementation.
+    '''
     bow_algo = BOWAlgorithm(user_q, user_feat_extractor, feature_extractor)
     resultDict = bow_algo._compute()
-    sortedResults = sorted(resultDict.items(), key=lambda x:x[1], reverse=True)
-    count = 0
-
-    print("***********************************************************************")
-    print("Given user question: ", user_q)
-    print("***********************************************************************")
-    print("Top 10 results from Bag of words algorithm are:")
-    for qa_pair,score in sortedResults:
-        if count < RESULTS_TOPN:
-            print(qa_pair.answer,score)
-            count = count + 1
-
+    print_results(user_q, resultDict)
+    
     #TODO: Now add the NLP engine algorithm
 
 if __name__ == "__main__":
