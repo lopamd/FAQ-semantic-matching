@@ -27,3 +27,8 @@ if homebrew is not configured
 brew cask install java
  
 The Stanford files are not included in this release. They need to be manually downloaded from https://stanfordnlp.github.io/CoreNLP/#programming-languages-and-operating-systems and added to the root of the repository. Look in nlp_config.py for hints about where to place the downloaded artifacts.
+
+2. Install python libraries
+pip3 install scipy
+pip3 install sklearn
+pip3 install numpy
