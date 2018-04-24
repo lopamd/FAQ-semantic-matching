@@ -82,8 +82,8 @@ class NLTKFeatureExtraction( base_objects.QAFeatureExtraction ):
     def _graph_dependencies( self ):
         self._dependency_graphs = []
         for tokenpair in self.sentence_tokens:
-            question_graph = [dependency_parser.parse(sentence) for sentence in tokenpair[0]]
-            answer_graph = [dependency_parser.parse(sentence) for sentence in tokenpair[1]]
+            question_graph = [dependency_parser.raw_parse(sentence) for sentence in tokenpair[0]]
+            answer_graph = [dependency_parser.raw_parse(sentence) for sentence in tokenpair[1]]
             self._dependency_graphs.append((question_graph, answer_graph))
     
     #the result of this function is 2-tuples of arrays of arrays of synsets. each inner array is one sentence.
