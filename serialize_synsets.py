@@ -13,6 +13,8 @@ import lesk
 
 #TODO: words like "United States" are being tagged with synsets separately
 
+#TODO: need to add in parts of speech. look at question 50. "build" should not be a noun
+
 sub_folder = 'data/synsets'
 
 faqs = faq_config.getFAQs()
