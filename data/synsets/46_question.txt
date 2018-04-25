@@ -1,0 +1,4 @@
+many many.a.01
+egg egg.n.01
+hummingbird hummingbird.n.01
+lay lay.v.04

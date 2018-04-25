@@ -1,0 +1,6 @@
+A angstrom.n.01
+hummingbird hummingbird.n.01
+lick salt_lick.n.01
+time time.n.01
+second second.n.01
+feeding eating.n.01

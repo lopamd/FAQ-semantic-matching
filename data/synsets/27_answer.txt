@@ -1,0 +1,5 @@
+Hummingbirds hummingbird.n.01
+sense sense.n.03
+smell smell.v.01
+keen keen.n.01
+eyesight eyesight.n.01

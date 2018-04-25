@@ -1,0 +1,9 @@
+Hummingbirds hummingbird.n.01
+live populate.v.01
+Americas united_states.n.01
+far army_for_the_liberation_of_rwanda.n.01
+north north.n.01
+Alaska alaska.n.01
+far army_for_the_liberation_of_rwanda.n.01
+south south.n.01
+Chile chile.n.01

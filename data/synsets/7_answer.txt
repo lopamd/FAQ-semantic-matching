@@ -1,0 +1,17 @@
+Hummingbirds hummingbird.n.01
+reuse recycle.v.02
+nest nest.n.01
+nest nest.n.01
+survives survive.v.02
+winter winter.n.01
+month calendar_month.n.01
+Do bash.n.02
+try attempt.n.01
+save save.n.01
+nest nest.n.01
+hummingbird hummingbird.n.01
+illegal illegal.a.01
+United unite.v.01
+States state.n.04
+many many.a.01
+country state.n.04

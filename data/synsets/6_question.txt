@@ -1,0 +1,4 @@
+Do do.v.04
+hummingbird hummingbird.n.01
+damage price.n.02
+flower flower.n.01

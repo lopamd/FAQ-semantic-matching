@@ -1,0 +1,5 @@
+Do doctor_of_osteopathy.n.01
+hummingbird hummingbird.n.01
+store shop.n.01
+food food.n.01
+travel travel.v.05

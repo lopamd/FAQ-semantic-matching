@@ -1,0 +1,5 @@
+many many.a.01
+breath breath.n.01
+hummingbird hummingbird.n.01
+take take.v.06
+minute moment.n.02

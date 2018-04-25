@@ -1,0 +1,11 @@
+Hummingbirds hummingbird.n.01
+drink drink.n.01
+nectar ambrosia.n.04
+hummingbird hummingbird.n.01
+feeder feeder.n.01
+flower flower.n.01
+eat consume.v.05
+small small.n.01
+soft soft.a.01
+insect insect.n.01
+bug bug.n.01

@@ -1,0 +1,5 @@
+Who world_health_organization.n.01
+take lead.v.01
+care wish.v.02
+newborn neonate.n.01
+hummingbird hummingbird.n.01

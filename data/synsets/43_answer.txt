@@ -1,0 +1,11 @@
+Hummingbirds hummingbird.n.01
+migrate migrate.v.01
+alone alone.s.01
+flock batch.n.02
+Very very.s.01
+commonly normally.r.01
+male male.n.01
+migrate migrate.v.01
+first first.n.01
+followed follow.v.01
+female female.n.01

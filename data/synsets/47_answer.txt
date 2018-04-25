@@ -1,0 +1,11 @@
+male male.n.01
+hummingbird hummingbird.n.01
+involved involve.v.01
+raising grow.v.07
+young young.n.08
+often frequently.r.01
+find determine.v.01
+another another.s.01
+mate match.v.03
+young young.n.08
+hatched hatch.v.01

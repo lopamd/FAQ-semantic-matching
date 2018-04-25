@@ -1,0 +1,3 @@
+long long.r.01
+hummingbird hummingbird.n.01
+live survive.v.01

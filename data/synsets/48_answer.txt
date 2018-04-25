@@ -1,0 +1,9 @@
+After after.s.01
+hatching hatch.v.01
+baby baby.n.01
+hummingbird hummingbird.n.01
+stay stay.v.04
+nest nest.v.01
+approximately approximately.r.01
+three three.n.01
+week week.n.01

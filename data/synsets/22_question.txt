@@ -1,0 +1,3 @@
+part part.n.01
+hummingbird hummingbird.n.01
+weighs weigh.v.01

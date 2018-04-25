@@ -1,0 +1,3 @@
+hummingbird hummingbird.n.01
+tongue tongue.n.01
+work work.v.03

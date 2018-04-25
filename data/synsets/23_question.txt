@@ -1,0 +1,3 @@
+big big.s.05
+hummingbird hummingbird.n.01
+egg egg.n.01

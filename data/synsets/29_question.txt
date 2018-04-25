@@ -1,0 +1,3 @@
+fast fast.r.01
+hummingbird hummingbird.n.01
+lick solve.v.01

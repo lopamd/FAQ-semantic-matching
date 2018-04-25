@@ -1,0 +1,13 @@
+A angstrom.n.01
+rate rate.n.01
+beat pulse.n.02
+minute hour.n.04
+measured measure.v.01
+Hummingbird hummingbird.n.01
+In inch.n.01
+torpid inert.s.03
+hummingbird hummingbird.n.01
+heart heart.n.02
+rate rate.n.01
+drop drop.n.02
+minute hour.n.04

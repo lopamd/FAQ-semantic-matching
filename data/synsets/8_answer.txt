@@ -1,0 +1,12 @@
+A angstrom.n.01
+hummingbird hummingbird.n.01
+consume consume.v.05
+anywhere anywhere.r.01
+half half.a.03
+eight eight.n.01
+8 eight.n.01
+time time.n.03
+body body.n.01
+weight weight.n.08
+one one.s.05
+day day.n.07

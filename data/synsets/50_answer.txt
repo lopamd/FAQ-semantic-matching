@@ -1,0 +1,5 @@
+Only lone.s.03
+female female.n.01
+hummingbird hummingbird.n.01
+build physique.n.01
+nest nest.n.01

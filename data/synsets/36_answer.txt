@@ -1,0 +1,4 @@
+Hummingbirds hummingbird.n.01
+bird bird.n.01
+fly fly.v.10
+backwards back.r.02
