@@ -11,6 +11,8 @@ import lesk
 
 #TODO: maybe we should leave stopwords. like "to" should be there for verbs i feel...
 
+#TODO: words like "United States" are being tagged with synsets separately
+
 sub_folder = 'data/synsets'
 
 faqs = faq_config.getFAQs()
