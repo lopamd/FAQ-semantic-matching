@@ -1,6 +1,7 @@
 import better_objects as b
 import faq_config
 import random
+import sys
 
 class Annealer(object):
   #all of the parameters are functions. e = energy, lower is better. p = probability.
@@ -38,9 +39,17 @@ def temperature(time): #time is k / kmax
 def energy(state, weights):
   scores = state.get_scores(weights)
   
+  #slot = 0
+  #x = sorted([(val, key) for key, val in scores.items()], reverse=True)
+  
+  #for xx in x:
+  #  if xx[1] == state.best_answer:
+  #    break
+  #  slot += 1
+  
   #super simple energy function. invert the score
   #this is probably too naive, but we will try it.
-  return 1 - scores[state.best_answer]
+  return (1 - scores[state.best_answer])# * slot / len(x)
   
 class State(object):
   def __init__(self, q_features, as_features, weights, best_answer):
@@ -69,15 +78,18 @@ def get_score_simple(arr1, arr2):
   return b.cosine_similarity(math_vecs[0], math_vecs[1])
 
 faqs = faq_config.getFAQs()
-question = "At what speed do hummingbirds fly in the air?"
+question = "Describe the hummingbird's lifecycle."#"What do hummingbirds eat?"#"At what speed do hummingbirds fly in the air?"
 
 as_features = b.get_answers_features(faqs)
 q_features = b.TextFeatureExtraction(question)
 
+#this should set up the synsets
+b.load_all_synsets(as_features)
+
 learned_weights = [1, 1, 1, 1, 1]
 
-max_steps = 30000
-state = State(q_features, as_features, learned_weights, 5)
+max_steps = 25000
+state = State(q_features, as_features, learned_weights, 10)#11) #5)
 anneal = Annealer(neighbor, energy, probability, temperature)
 for k in range(max_steps):
   t = anneal.temperature(k / max_steps)
@@ -95,22 +107,3 @@ dict_scores = sorted([(ascore, qnum) for qnum, ascore in state.get_scores(learne
 
 for pair in dict_scores:
   print("%2d: %f" % (pair[1], pair[0]))
-
-#def get_scores(weights):
-#  scores = []
-
-#  for ix, af in enumerate(as_features):
-#    score_vector = [get_score_simple(q_features.tokens, af.tokens),
-#                    get_score_simple(q_features.tokens_no_stops, af.tokens_no_stops),
-#                    get_score_simple(q_features.lemmas, af.lemmas),
-#                    get_score_simple(q_features.stems, af.stems),
-#                    get_score_simple(q_features.pos_tags, af.pos_tags)]
-
-#    score = b.score_features(score_vector, weights)
-    
-#    scores.append((score, ix + 1))
-    
-#  return sorted(scores, reverse=True)
-
-#for pair in sorted(scores, reverse=True):
-#  print("%2d: %f" % (pair[1], pair[0]))\

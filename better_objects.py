@@ -4,6 +4,10 @@ import nltk_objects
 from collections import Counter
 import sklearn.metrics
 import numpy as np
+from nltk.corpus import wordnet as wn
+
+synset_folder = 'data/synsets/'
+synset_filename_format = "%d_%s.txt" #%d is from 1 to 50, %s is question or answer
 
 #TODO: normalize words??
 #TODO: do lemmatize and stem need context?? tokens were already sorted
@@ -39,6 +43,22 @@ class TextFeatureExtraction(object):
     self.lemmas = do_lemmatize(self.tokens)
     self.stems = do_stem(self.tokens)
     self.pos_tags = do_pos_tag(text)
+    self.synsets = []
+    
+#takes a text feature extraction and a filename and hooks you up with the synsets
+def add_synsets(tfe, filename):
+  lines = [line.rstrip('\n') for line in open(filename)]
+  synset_names = [line.split()[1] for line in lines] #grab the synset names
+  tfe.synsets.extend([wn.synset(synset_name) for synset_name in synset_names])
+  
+def load_all_synsets(tfes):
+  current = 1
+  for tfe in tfes:
+    filename_question = synset_folder + (synset_filename_format % (current, "question"))
+    filename_answer = synset_folder + (synset_filename_format % (current, "answer"))
+    add_synsets(tfe, filename_question)
+    add_synsets(tfe, filename_answer)
+    current += 1
     
 def get_answers_features(qapairs):
   ret = []
@@ -92,13 +112,3 @@ def cosine_similarity(a, b):
 def score_features(scores, weights):
   weighted_sims = [c * d for c, d in zip(scores, weights)]
   return np.linalg.norm(weighted_sims) / np.linalg.norm(weights)
-    
-#a and b are already scored vectors
-#def score_features(a, b, weights):
-  #similarities = [cosine_similarity(arr1, arr2) for arr1, arr2 in a, b]
-  #similarities = [cosine_similarity(a[0], b[0]), cosine_similarity(a[1], b[1]),
-  #                cosine_similarity(a[2]), cosine_similarity(a.stems, b.stems), cosine_similarity(a.pos_tags, b.pos_tags)]
-                  
-  #weighted_sims = [c * d for c, d in zip(similarities, weights)]
-  
-  #return np.linalg.norm(weighted_sims) / np.linalg.norm(weights)
