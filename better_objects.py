@@ -96,7 +96,10 @@ class TextFeatureExtraction(object):
       for addr, item in dg.nodes.items():
         for dep, depaddr in item['deps'].items():
           if len(depaddr) > 0:
-            self.depgraph_deps.append((item['lemma'], dep, dg.nodes[depaddr[0]]['lemma']))
+            item_lemma = item['lemma']
+            if item_lemma is None:
+              item_lemma = ""
+            self.depgraph_deps.append((item_lemma, dep, dg.nodes[depaddr[0]]['lemma']))
     
     #('word', 'relation')
     for dg in self.depgraphs:

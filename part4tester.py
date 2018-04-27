@@ -70,7 +70,9 @@ class State(object):
                       get_score_simple(q_features.pos_tags, af.pos_tags),
                       get_score_simple(q_features.all_lemmas, af.all_lemmas),
                       get_score_simple(q_features.wn_definitions, af.wn_definitions),
-                      get_score_simple(q_features.wn_examples, af.wn_examples)]
+                      get_score_simple(q_features.wn_examples, af.wn_examples),
+                      get_score_simple(q_features.depgraph_deps, af.depgraph_deps),
+                      get_score_simple(q_features.depgraph_rels, af.depgraph_rels)]
       self.score_vectors.append(score_vector)
       
   def get_scores(self, used_weights = None):
@@ -89,7 +91,7 @@ def get_score_simple(arr1, arr2):
   return b.cosine_similarity(math_vecs[0], math_vecs[1])
 
 faqs = faq_config.getFAQs()
-question = "What do hummingbirds eat?"#"What is the lifecycle of a hummingbird like as it grows from birth as a child to death?"#"Describe the hummingbird's lifecycle."#"What do hummingbirds eat?"#"At what speed do hummingbirds fly in the air?"
+question = "At what speed do hummingbirds fly in the air?"#"What do hummingbirds eat?"#"What is the lifecycle of a hummingbird like as it grows from birth as a child to death?"#"Describe the hummingbird's lifecycle."#"What do hummingbirds eat?"#"At what speed do hummingbirds fly in the air?"
 
 as_features = b.get_answers_features(faqs)
 q_features = b.TextFeatureExtraction(question)
@@ -108,10 +110,10 @@ for f in as_features:
 q_features.add_wordnet_features()
 q_features.add_depgraph_features()
 
-learned_weights = [1, 1, 1, 1, 1, 1, 1, 1]
+learned_weights = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 
 max_steps = 25000
-state = State(q_features, as_features, learned_weights, 11)#10)#11) #5)
+state = State(q_features, as_features, learned_weights, 5)#11)#10)#11) #5)
 anneal = Annealer(neighbor, energy, probability, temperature)
 for k in range(max_steps):
   t = anneal.temperature(k / max_steps)
