@@ -2,6 +2,7 @@ import better_objects as b
 import faq_config
 import random
 import sys
+import lesk
 
 class Annealer(object):
   #all of the parameters are functions. e = energy, lower is better. p = probability.
@@ -85,6 +86,7 @@ q_features = b.TextFeatureExtraction(question)
 
 #this should set up the synsets
 b.load_all_synsets(as_features)
+q_features.synsets = lesk.get_synsets_from_features(q_features)
 
 learned_weights = [1, 1, 1, 1, 1]
 

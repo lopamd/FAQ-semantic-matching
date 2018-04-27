@@ -43,3 +43,7 @@ def get_lemma_synset(lemma, lemma_neighbors):
       best_option = (candidate_syn, overlap_value)
       
   return best_option[0]
+  
+#takes a textfeatureextraction object
+def get_synsets_from_features(tfe):
+  return [get_lemma_synset(lemma, tfe.lemmas) for lemma in tfe.lemmas]
