@@ -56,7 +56,7 @@ def energy(state, weights):
   #super simple energy function. invert the score
   #this is probably too naive, but we will try it.
   return (1 - scores[state.best_answer])# * slot / len(x)
-  
+
 class State(object):
   def __init__(self, q_features, as_features, weights, best_answer):
     self.weights = weights #never used
@@ -68,7 +68,16 @@ class State(object):
                       get_score_simple(q_features.lemmas, af.lemmas),
                       get_score_simple(q_features.stems, af.stems),
                       get_score_simple(q_features.pos_tags, af.pos_tags),
-                      get_score_simple(q_features.all_lemmas, af.all_lemmas),
+                      get_score_simple(q_features.synset_lemmas, af.synset_lemmas),
+                      get_score_simple(q_features.antonym_lemmas, af.antonym_lemmas),
+                      get_score_simple(q_features.hyponym_lemmas, af.hyponym_lemmas),
+                      get_score_simple(q_features.hypernym_lemmas, af.hypernym_lemmas),
+                      get_score_simple(q_features.part_meronym_lemmas, af.part_meronym_lemmas),
+                      get_score_simple(q_features.part_holonym_lemmas, af.part_holonym_lemmas),
+                      get_score_simple(q_features.member_meronym_lemmas, af.member_meronym_lemmas),
+                      get_score_simple(q_features.member_holonym_lemmas, af.member_holonym_lemmas),
+                      get_score_simple(q_features.substance_meronym_lemmas, af.substance_meronym_lemmas),
+                      get_score_simple(q_features.substance_holonym_lemmas, af.substance_holonym_lemmas),
                       get_score_simple(q_features.wn_definitions, af.wn_definitions),
                       get_score_simple(q_features.wn_examples, af.wn_examples),
                       get_score_simple(q_features.depgraph_deps, af.depgraph_deps),
@@ -110,7 +119,8 @@ for f in as_features:
 q_features.add_wordnet_features()
 q_features.add_depgraph_features()
 
-learned_weights = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+feature_count = 19 #TODO: hardcoded
+learned_weights = [1] * feature_count
 
 max_steps = 25000
 state = State(q_features, as_features, learned_weights, 5)#11)#10)#11) #5)

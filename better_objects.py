@@ -49,11 +49,23 @@ class TextFeatureExtraction(object):
     self.lemmas = do_lemmatize(self.tokens)
     self.stems = do_stem(self.tokens)
     self.pos_tags = do_pos_tag(text)
+    self.synsets = []
     self.depgraphs = []
+    
     self.depgraph_deps = []
     self.depgraph_rels = []
-    self.synsets = []
-    self.all_lemmas = []
+    
+    self.synset_lemmas = []
+    self.antonym_lemmas = []
+    self.hyponym_lemmas = []
+    self.hypernym_lemmas = []
+    self.part_meronym_lemmas = []
+    self.part_holonym_lemmas = []
+    self.member_meronym_lemmas = []
+    self.member_holonym_lemmas = []
+    self.substance_meronym_lemmas = []
+    self.substance_holonym_lemmas = []
+    
     self.wn_definitions = [] #just going to be a list of words
     self.wn_examples = [] #just going to be a list of words
   
@@ -78,17 +90,17 @@ class TextFeatureExtraction(object):
       return flatten([s.lemma_names() for s in syns])
   
     for s in self.synsets:
-      self.all_lemmas.extend(s.lemma_names())
+      self.synset_lemmas.extend(s.lemma_names())
       for lemma in s.lemmas():
-        self.all_lemmas.extend([a.name() for a in lemma.antonyms()])
-      self.all_lemmas.extend(internal_synset_lemmas(s.hyponyms()))
-      self.all_lemmas.extend(internal_synset_lemmas(s.hypernyms()))
-      self.all_lemmas.extend(internal_synset_lemmas(s.part_meronyms()))
-      self.all_lemmas.extend(internal_synset_lemmas(s.part_holonyms()))
-      self.all_lemmas.extend(internal_synset_lemmas(s.member_meronyms()))
-      self.all_lemmas.extend(internal_synset_lemmas(s.member_holonyms()))
-      self.all_lemmas.extend(internal_synset_lemmas(s.substance_meronyms()))
-      self.all_lemmas.extend(internal_synset_lemmas(s.substance_holonyms()))
+        self.antonym_lemmas.extend([a.name() for a in lemma.antonyms()])
+      self.hyponym_lemmas.extend(internal_synset_lemmas(s.hyponyms()))
+      self.hypernym_lemmas.extend(internal_synset_lemmas(s.hypernyms()))
+      self.part_meronym_lemmas.extend(internal_synset_lemmas(s.part_meronyms()))
+      self.part_holonym_lemmas.extend(internal_synset_lemmas(s.part_holonyms()))
+      self.member_meronym_lemmas.extend(internal_synset_lemmas(s.member_meronyms()))
+      self.member_holonym_lemmas.extend(internal_synset_lemmas(s.member_holonyms()))
+      self.substance_meronym_lemmas.extend(internal_synset_lemmas(s.substance_meronyms()))
+      self.substance_holonym_lemmas.extend(internal_synset_lemmas(s.substance_holonyms()))
       
   def add_depgraph_features(self):
     #('firstword', 'secondword', 'dependency')
