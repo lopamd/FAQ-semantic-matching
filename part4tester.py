@@ -62,7 +62,8 @@ class State(object):
                       get_score_simple(q_features.tokens_no_stops, af.tokens_no_stops),
                       get_score_simple(q_features.lemmas, af.lemmas),
                       get_score_simple(q_features.stems, af.stems),
-                      get_score_simple(q_features.pos_tags, af.pos_tags)]
+                      get_score_simple(q_features.pos_tags, af.pos_tags)],
+                      get_score_simple(q_features.all_lemmas, af.all_lemmas)]
       self.score_vectors.append(score_vector)
       
   def get_scores(self, used_weights = None):
@@ -88,7 +89,11 @@ q_features = b.TextFeatureExtraction(question)
 b.load_all_synsets(as_features)
 q_features.synsets = lesk.get_synsets_from_features(q_features)
 
-learned_weights = [1, 1, 1, 1, 1]
+for f in as_features:
+  f.load_all_wordnet_lemmas()
+q_features.load_all_wordnet_lemmas()
+
+learned_weights = [1, 1, 1, 1, 1, 1]
 
 max_steps = 25000
 state = State(q_features, as_features, learned_weights, 10)#11) #5)

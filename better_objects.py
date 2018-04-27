@@ -16,6 +16,8 @@ stops = set(nltk.corpus.stopwords.words('english'))
 lemmatizer = nltk.stem.wordnet.WordNetLemmatizer()
 stemmer = nltk.stem.PorterStemmer()
 
+flatten = lambda l: [item for sublist in l for item in sublist]
+
 #array of array of sorted answer tokens.
 def do_tokenize(text):
   return sorted(nltk.word_tokenize(text))
@@ -44,6 +46,28 @@ class TextFeatureExtraction(object):
     self.stems = do_stem(self.tokens)
     self.pos_tags = do_pos_tag(text)
     self.synsets = []
+    self.all_lemmas = []
+    
+  #grab all lemmas from wordnet possible
+  def load_all_wordnet_lemmas(self):
+    def internal_synset_lemmas(syns):
+      return flatten([s.lemma_names() for s in syns])
+  
+    #TODO: hack. do this better
+    self.synsets = [s for s in self.synsets if s is not None]
+  
+    for s in self.synsets:
+      self.all_lemmas.extend(s.lemma_names())
+      for lemma in s.lemmas():
+        self.all_lemmas.extend([a.name() for a in lemma.antonyms()])
+      self.all_lemmas.extend(internal_synset_lemmas(s.hyponyms()))
+      self.all_lemmas.extend(internal_synset_lemmas(s.hypernyms()))
+      self.all_lemmas.extend(internal_synset_lemmas(s.part_meronyms()))
+      self.all_lemmas.extend(internal_synset_lemmas(s.part_holonyms()))
+      self.all_lemmas.extend(internal_synset_lemmas(s.member_meronyms()))
+      self.all_lemmas.extend(internal_synset_lemmas(s.member_holonyms()))
+      self.all_lemmas.extend(internal_synset_lemmas(s.substance_meronyms()))
+      self.all_lemmas.extend(internal_synset_lemmas(s.substance_holonyms()))
     
 #takes a text feature extraction and a filename and hooks you up with the synsets
 def add_synsets(tfe, filename):
