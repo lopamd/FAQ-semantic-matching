@@ -5,9 +5,13 @@ from collections import Counter
 import sklearn.metrics
 import numpy as np
 from nltk.corpus import wordnet as wn
+from nltk.parse.dependencygraph import DependencyGraph
 
 synset_folder = 'data/synsets/'
 synset_filename_format = "%d_%s.txt" #%d is from 1 to 50, %s is question or answer
+
+depgraph_folder = 'data/depgraphs/'
+depgraph_filename_format = "%d_%s.conll" #%d is from 1 to 50, %s is question or answer
 
 #TODO: normalize words??
 #TODO: do lemmatize and stem need context?? tokens were already sorted
@@ -45,6 +49,9 @@ class TextFeatureExtraction(object):
     self.lemmas = do_lemmatize(self.tokens)
     self.stems = do_stem(self.tokens)
     self.pos_tags = do_pos_tag(text)
+    self.depgraphs = []
+    self.depgraph_deps = []
+    self.depgraph_rels = []
     self.synsets = []
     self.all_lemmas = []
     self.wn_definitions = [] #just going to be a list of words
@@ -82,6 +89,20 @@ class TextFeatureExtraction(object):
       self.all_lemmas.extend(internal_synset_lemmas(s.member_holonyms()))
       self.all_lemmas.extend(internal_synset_lemmas(s.substance_meronyms()))
       self.all_lemmas.extend(internal_synset_lemmas(s.substance_holonyms()))
+      
+  def add_depgraph_features(self):
+    #('firstword', 'secondword', 'dependency')
+    for dg in self.depgraphs:
+      for addr, item in dg.nodes.items():
+        for dep, depaddr in item['deps'].items():
+          if len(depaddr) > 0:
+            self.depgraph_deps.append((item['lemma'], dep, dg.nodes[depaddr[0]]['lemma']))
+    
+    #('word', 'relation')
+    for dg in self.depgraphs:
+      for item in dg.nodes.values():
+        if item['lemma'] != "" and item['lemma'] is not None and item['rel'] != "" and item['rel'] is not None:
+          self.depgraph_rels.append((item['lemma'], item['rel']))
     
 #takes a text feature extraction and a filename and hooks you up with the synsets
 def add_synsets(tfe, filename):
@@ -89,6 +110,7 @@ def add_synsets(tfe, filename):
   synset_names = [line.split()[1] for line in lines] #grab the synset names
   tfe.synsets.extend([wn.synset(synset_name) for synset_name in synset_names])
   
+#TODO: consolidate load_all_synsets and load_all_depgraphs
 def load_all_synsets(tfes):
   current = 1
   for tfe in tfes:
@@ -97,6 +119,15 @@ def load_all_synsets(tfes):
     add_synsets(tfe, filename_question)
     add_synsets(tfe, filename_answer)
     current += 1
+    
+def load_all_depgraphs(tfes):
+  current = 1
+  for tfe in tfes:
+    filename_question = depgraph_folder + (depgraph_filename_format % (current, "question"))
+    filename_answer = depgraph_folder + (depgraph_filename_format % (current, "answer"))
+    graphs_question = DependencyGraph.load(filename_question)
+    graphs_answer = DependencyGraph.load(filename_answer)
+    tfe.depgraphs = graphs_question + graphs_answer
     
 def get_answers_features(qapairs):
   ret = []

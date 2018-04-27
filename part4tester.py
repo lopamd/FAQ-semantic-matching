@@ -3,6 +3,11 @@ import faq_config
 import random
 import sys
 import lesk
+import nlp_config
+from nltk.parse.stanford import StanfordDependencyParser
+
+#TODO: this should be in a central place
+dependency_parser = StanfordDependencyParser(path_to_jar=nlp_config.path_to_stanford_jar, path_to_models_jar=nlp_config.path_to_stanford_models_jar)
 
 class Annealer(object):
   #all of the parameters are functions. e = energy, lower is better. p = probability.
@@ -84,7 +89,7 @@ def get_score_simple(arr1, arr2):
   return b.cosine_similarity(math_vecs[0], math_vecs[1])
 
 faqs = faq_config.getFAQs()
-question = "What is the lifecycle of a hummingbird like as it grows from birth as a child to death?"#"Describe the hummingbird's lifecycle."#"What do hummingbirds eat?"#"At what speed do hummingbirds fly in the air?"
+question = "What do hummingbirds eat?"#"What is the lifecycle of a hummingbird like as it grows from birth as a child to death?"#"Describe the hummingbird's lifecycle."#"What do hummingbirds eat?"#"At what speed do hummingbirds fly in the air?"
 
 as_features = b.get_answers_features(faqs)
 q_features = b.TextFeatureExtraction(question)
@@ -93,14 +98,20 @@ q_features = b.TextFeatureExtraction(question)
 b.load_all_synsets(as_features)
 q_features.synsets = lesk.get_synsets_from_features(q_features)
 
+#this should set up dependency graphs
+b.load_all_depgraphs(as_features)
+q_features.depgraphs = [dg for dg in dependency_parser.raw_parse(question)] #TODO: not the best way to do this. also iter to make an array
+
 for f in as_features:
   f.add_wordnet_features()
+  f.add_depgraph_features()
 q_features.add_wordnet_features()
+q_features.add_depgraph_features()
 
 learned_weights = [1, 1, 1, 1, 1, 1, 1, 1]
 
 max_steps = 25000
-state = State(q_features, as_features, learned_weights, 10)#11) #5)
+state = State(q_features, as_features, learned_weights, 11)#10)#11) #5)
 anneal = Annealer(neighbor, energy, probability, temperature)
 for k in range(max_steps):
   t = anneal.temperature(k / max_steps)
