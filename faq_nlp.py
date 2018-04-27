@@ -26,8 +26,6 @@ def main():
  
     faqs = faq_config.getFAQs()
     feature_extractor = nltk_objects.NLTKFeatureExtraction(faqs)
-    qatokens = feature_extractor.tokens
-    qabows = feature_extractor.bow
 
     user_q = input("Input your question:")
     #user_q = "when is hummingbird season"
