@@ -47,14 +47,28 @@ class TextFeatureExtraction(object):
     self.pos_tags = do_pos_tag(text)
     self.synsets = []
     self.all_lemmas = []
+    self.wn_definitions = [] #just going to be a list of words
+    self.wn_examples = [] #just going to be a list of words
+  
+  def add_wordnet_features(self):
+    #TODO: hack. do this better
+    self.synsets = [s for s in self.synsets if s is not None]
     
+    self.load_all_wordnet_lemmas()
+    self.load_all_wordnet_definitions()
+    self.load_all_wordnet_examples()
+    
+  def load_all_wordnet_definitions(self):
+    self.wn_definitions = flatten([s.definition().split() for s in self.synsets])
+    
+  def load_all_wordnet_examples(self):
+    for s in self.synsets:
+      self.wn_definitions.extend(flatten([e.split() for e in s.examples()]))
+  
   #grab all lemmas from wordnet possible
   def load_all_wordnet_lemmas(self):
     def internal_synset_lemmas(syns):
       return flatten([s.lemma_names() for s in syns])
-  
-    #TODO: hack. do this better
-    self.synsets = [s for s in self.synsets if s is not None]
   
     for s in self.synsets:
       self.all_lemmas.extend(s.lemma_names())

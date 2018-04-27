@@ -62,8 +62,10 @@ class State(object):
                       get_score_simple(q_features.tokens_no_stops, af.tokens_no_stops),
                       get_score_simple(q_features.lemmas, af.lemmas),
                       get_score_simple(q_features.stems, af.stems),
-                      get_score_simple(q_features.pos_tags, af.pos_tags)],
-                      get_score_simple(q_features.all_lemmas, af.all_lemmas)]
+                      get_score_simple(q_features.pos_tags, af.pos_tags),
+                      get_score_simple(q_features.all_lemmas, af.all_lemmas),
+                      get_score_simple(q_features.wn_definitions, af.wn_definitions),
+                      get_score_simple(q_features.wn_examples, af.wn_examples)]
       self.score_vectors.append(score_vector)
       
   def get_scores(self, used_weights = None):
@@ -76,11 +78,13 @@ class State(object):
 def lt_default(a, b): return a < b
 
 def get_score_simple(arr1, arr2):
+  if len(arr1) == 0 or len(arr2) == 0:
+    return 0
   math_vecs = b.get_math_vectors(arr1, arr2, lt_default)
   return b.cosine_similarity(math_vecs[0], math_vecs[1])
 
 faqs = faq_config.getFAQs()
-question = "Describe the hummingbird's lifecycle."#"What do hummingbirds eat?"#"At what speed do hummingbirds fly in the air?"
+question = "What is the lifecycle of a hummingbird like as it grows from birth as a child to death?"#"Describe the hummingbird's lifecycle."#"What do hummingbirds eat?"#"At what speed do hummingbirds fly in the air?"
 
 as_features = b.get_answers_features(faqs)
 q_features = b.TextFeatureExtraction(question)
@@ -90,10 +94,10 @@ b.load_all_synsets(as_features)
 q_features.synsets = lesk.get_synsets_from_features(q_features)
 
 for f in as_features:
-  f.load_all_wordnet_lemmas()
-q_features.load_all_wordnet_lemmas()
+  f.add_wordnet_features()
+q_features.add_wordnet_features()
 
-learned_weights = [1, 1, 1, 1, 1, 1]
+learned_weights = [1, 1, 1, 1, 1, 1, 1, 1]
 
 max_steps = 25000
 state = State(q_features, as_features, learned_weights, 10)#11) #5)
