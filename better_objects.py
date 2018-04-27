@@ -3,6 +3,7 @@ import base_objects
 import nltk_objects
 from collections import Counter
 import sklearn.metrics
+import numpy as np
 
 #TODO: normalize words??
 #TODO: do lemmatize and stem need context?? tokens were already sorted
@@ -86,9 +87,18 @@ def cosine_similarity(a, b):
   #the semantics of cosine_similarity are annoying.
   #it must make sense in general because it's really annoying.
   return sklearn.metrics.pairwise.cosine_similarity([a], [b])[0][0] #seriously, it's a number in a nested array
+  
+#a and b are already scored vectors
+def score_features(scores, weights):
+  weighted_sims = [c * d for c, d in zip(scores, weights)]
+  return np.linalg.norm(weighted_sims) / np.linalg.norm(weights)
     
-    
-    
-    
-    
-    
+#a and b are already scored vectors
+#def score_features(a, b, weights):
+  #similarities = [cosine_similarity(arr1, arr2) for arr1, arr2 in a, b]
+  #similarities = [cosine_similarity(a[0], b[0]), cosine_similarity(a[1], b[1]),
+  #                cosine_similarity(a[2]), cosine_similarity(a.stems, b.stems), cosine_similarity(a.pos_tags, b.pos_tags)]
+                  
+  #weighted_sims = [c * d for c, d in zip(similarities, weights)]
+  
+  #return np.linalg.norm(weighted_sims) / np.linalg.norm(weights)
