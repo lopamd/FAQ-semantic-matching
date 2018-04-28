@@ -1,0 +1,6 @@
+Do do.v.04
+hummingbird hummingbird.n.01
+sit ride.v.01
+back bet_on.v.01
+bird bird.n.01
+migration migration.n.04

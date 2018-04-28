@@ -1,0 +1,5 @@
+Does do.v.04
+hummingbird hummingbird.n.01
+find find.v.03
+flower flower.n.01
+smell smell.n.01

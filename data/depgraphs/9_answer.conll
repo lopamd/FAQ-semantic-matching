@@ -1,0 +1,27 @@
+Not	RB	0	root
+really	RB	1	dep
+
+Termites	NNS	2	nsubj
+have	VBP	0	root
+a	DT	5	det
+tough	JJ	5	amod
+exoskeleton	NN	2	dobj
+that	IN	10	mark
+hummingbirds	NNS	10	nsubj
+do	VBP	10	aux
+n't	RB	10	neg
+like	VB	5	dep
+to	TO	12	mark
+have	VB	10	xcomp
+to	TO	14	mark
+deal	VB	12	xcomp
+with	IN	18	mark
+unless	IN	18	mark
+they	PRP	18	nsubj
+have	VBP	14	advcl
+to	TO	18	xcomp
+
+Hummingbirds	NNS	2	nsubj
+prefer	VBP	0	root
+softer	JJR	4	amod
+insects	NNS	2	dobj

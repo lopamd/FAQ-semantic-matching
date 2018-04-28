@@ -1,0 +1,10 @@
+In inch.n.01
+preparation preparation.n.01
+migration migration.n.01
+hummingbird hummingbird.n.01
+store store.v.01
+half one-half.n.01
+body body.n.01
+weight weight.n.01
+worth worth.s.02
+fat adipose_tissue.n.01

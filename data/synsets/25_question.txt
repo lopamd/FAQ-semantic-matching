@@ -1,0 +1,4 @@
+far far.r.03
+hummingbird hummingbird.n.01
+fly fly.v.09
+migration migration.n.01

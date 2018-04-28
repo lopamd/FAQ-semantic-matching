@@ -1,0 +1,4 @@
+Do do.v.04
+hummingbird hummingbird.n.01
+migrate migrate.v.01
+together together.s.01

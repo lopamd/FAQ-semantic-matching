@@ -1,0 +1,5 @@
+fast fast.r.01
+hummingbird hummingbird.n.01
+wing wing.n.01
+beat beat.v.04
+move travel.v.01

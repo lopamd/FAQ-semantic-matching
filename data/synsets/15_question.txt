@@ -1,0 +1,4 @@
+fast fast.r.01
+hummingbird hummingbird.n.01
+heart heart.n.01
+beat beat.v.04

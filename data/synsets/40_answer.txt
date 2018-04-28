@@ -1,0 +1,8 @@
+A angstrom.n.01
+hummingbird hummingbird.n.01
+heart heart.n.02
+relatively relatively.r.01
+largest big.s.11
+animal animal.s.01
+body body.n.01
+weight weight.n.01

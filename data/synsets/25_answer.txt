@@ -1,0 +1,15 @@
+hummingbird hummingbird.n.01
+longest long.a.02
+migration migration.n.01
+hummingbird hummingbird.n.01
+specie coinage.n.01
+hummer hummer.n.01
+fly fly.v.03
+mile mile.n.01
+nesting cuddle.v.01
+ground land.n.04
+Alaska alaska.n.01
+Canada canada.n.01
+winter winter.n.01
+habitat habitat.n.01
+Mexico mexico.n.01

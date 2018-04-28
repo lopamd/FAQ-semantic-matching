@@ -1,0 +1,12 @@
+A angstrom.n.01
+hummingbird hummingbird.n.01
+fly fly.v.10
+average average.v.01
+speed speed.n.01
+mile mile.n.01
+hour hour.n.01
+fast fast.s.04
+dive honkytonk.n.01
+60 sixty.n.01
+mile mile.n.01
+hour hour.n.01

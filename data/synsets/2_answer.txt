@@ -1,0 +1,12 @@
+Hummingbirds hummingbird.n.01
+migrate migrate.v.01
+go travel.v.01
+anywhere anywhere.r.01
+southern southern.a.01
+United unite.v.01
+States express.v.04
+Mexico mexico.n.01
+Panama panama.n.01
+Yucatan yucatan.n.01
+Peninsula peninsula.n.01
+winter winter.n.01

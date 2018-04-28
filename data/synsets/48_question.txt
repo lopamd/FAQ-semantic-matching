@@ -1,0 +1,6 @@
+long long.r.01
+baby child.n.03
+hummingbird hummingbird.n.01
+take take.v.06
+leave farewell.n.02
+nest nest.n.01

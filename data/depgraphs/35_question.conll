@@ -1,0 +1,7 @@
+What	WDT	2	det
+threats	NN	4	nsubjpass
+are	VBP	4	auxpass
+posed	VBN	0	root
+to	TO	6	case
+hummingbirds	NNS	4	nmod
+today	NN	4	nmod:tmod

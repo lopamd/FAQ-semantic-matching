@@ -1,0 +1,7 @@
+Does	NNP	4	dep
+a	DT	3	det
+hummingbird	NN	4	nsubj
+find	VB	0	root
+flowers	NNS	4	dobj
+by	IN	7	case
+smell	NN	4	nmod

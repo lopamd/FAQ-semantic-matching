@@ -1,0 +1,3 @@
+big big.s.11
+hummingbird hummingbird.n.01
+heart kernel.n.03

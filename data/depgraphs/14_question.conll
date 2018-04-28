@@ -1,0 +1,11 @@
+How	WRB	2	advmod
+fast	JJ	6	dep
+do	VBP	6	aux
+hummingbird	JJ	5	amod
+wings	NNS	6	nsubj
+beat	VB	0	root
+
+How	WRB	4	advmod
+do	VBP	4	aux
+they	PRP	4	nsubj
+move	VB	0	root

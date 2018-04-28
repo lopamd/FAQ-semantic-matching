@@ -1,0 +1,2 @@
+hummingbird hummingbird.n.01
+eat eat.v.01

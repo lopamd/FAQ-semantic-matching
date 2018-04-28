@@ -1,0 +1,13 @@
+A angstrom.n.01
+hummingbird hummingbird.n.01
+wing flank.n.01
+beat beat.v.11
+take take.v.24
+much much.r.01
+energy energy.n.01
+spend spend.v.01
+majority majority.n.01
+time time.n.02
+resting rest.v.02
+branch branch.n.02
+twig branchlet.n.01

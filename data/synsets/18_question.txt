@@ -1,0 +1,5 @@
+make brand.n.02
+hummingbird hummingbird.n.01
+throat throat.n.04
+bright bright.a.01
+colorful colorful.a.01

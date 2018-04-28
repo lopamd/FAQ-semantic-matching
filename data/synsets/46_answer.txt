@@ -1,0 +1,5 @@
+Female female.n.01
+hummingbird hummingbird.n.01
+lay lay.v.04
+two two.n.01
+egg egg.n.01

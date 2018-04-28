@@ -1,0 +1,8 @@
+Hummingbirds hummingbird.n.01
+neck neck.n.01
+vertebra vertebra.n.01
+14 fourteen.n.01
+15 fifteen.n.01
+opposed oppose.v.01
+mammal mammal.n.01
+7 seven.n.01

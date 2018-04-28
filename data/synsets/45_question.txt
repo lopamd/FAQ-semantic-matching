@@ -1,0 +1,3 @@
+predator marauder.n.01
+eat eat.v.01
+hummingbird hummingbird.n.01

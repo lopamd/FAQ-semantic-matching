@@ -1,0 +1,7 @@
+How	WRB	2	advmod
+big	JJ	3	dep
+are	VBP	0	root
+a	DT	5	det
+hummingbird	NN	7	nmod:poss
+'s	POS	5	case
+eggs	NNS	3	nsubj

@@ -1,0 +1,16 @@
+Hummingbirds hummingbird.n.01
+digest digest.n.01
+natural natural.s.07
+sucrose sucrose.n.01
+sugar carbohydrate.n.01
+found find.v.10
+floral floral.s.01
+nectar nectar.n.01
+20 twenty.n.01
+minute minute.n.01
+97 ninety-seven.s.01
+percent percentage.n.01
+efficiency efficiency.n.01
+converting convert.v.01
+sugar carbohydrate.n.01
+energy energy.n.01

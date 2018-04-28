@@ -1,0 +1,7 @@
+How	WRB	7	advmod
+does	VBZ	7	aux
+a	DT	4	det
+hummingbird	NN	6	nmod:poss
+'s	POS	4	case
+tongue	NN	7	nsubj
+work	VB	0	root

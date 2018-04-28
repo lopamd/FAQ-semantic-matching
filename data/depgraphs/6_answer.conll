@@ -1,0 +1,27 @@
+No	UH	0	root
+
+Flowers	NNS	2	nsubj
+love	VBP	0	root
+hummingbirds	NNS	2	dobj
+
+Flowers	NNS	2	nsubj
+need	VBP	0	root
+hummingbirds	NNS	2	dobj
+to	TO	5	mark
+help	VB	2	xcomp
+with	IN	7	case
+pollination	NN	5	nmod
+
+Plants	NNS	3	nsubj
+will	MD	3	aux
+position	VB	0	root
+their	PRP$	5	nmod:poss
+flowers	NNS	3	dobj
+outward	VBN	5	acl
+so	IN	12	mark
+the	DT	9	det
+hummingbirds	NNS	12	nsubj
+can	MD	12	aux
+easily	RB	12	advmod
+reach	VB	6	advcl
+them	PRP	12	dobj
