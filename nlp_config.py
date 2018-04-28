@@ -1,5 +1,7 @@
 import os
 
+CONFIG_ALGO_BOW = 1
+CONFIG_ALGO_NLP = 2
 default_locale = 'english'
 
 faq_input_file = 'input/Hummingbirds.csv'
