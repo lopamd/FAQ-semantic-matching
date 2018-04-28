@@ -11,6 +11,9 @@ import part4tester as model
 
 RESULTS_TOPN = 10
 
+do_training = False
+report_training = False
+do_main = True
 
 def print_results(user_q, resultDict, algoType):
     sortedResults = sorted(resultDict.items(), key=lambda x:x[1], reverse=True)
@@ -59,11 +62,6 @@ def run_userq(user_qa, faq_feat, algoType):
         uq_nlp_feat = [b.TextFeatureExtraction(user_q, user_qa)]
 
         '''
-        TRAINING Code
-        '''
-        #model.train_model(faqs)
-
-        '''
         Testing code
         '''
 
@@ -78,24 +76,42 @@ def main():
     print("****** Hummingbird FAQ engine powered by NLTK *********")
 
     faqs = faq_config.getFAQs()
-    faq_bow_feat = nltk_objects.NLTKFeatureExtraction(faqs)
-    faq_nlp_feat = model.get_faq_features(faqs)
 
-    run_mrr(faq_bow_feat, CONFIG_ALGO_BOW)
-    run_mrr(faq_nlp_feat, CONFIG_ALGO_NLP)
-    #'''
-    #user_q = input("Input your question:")
-    #user_q = "when is hummingbird season"
-    user_q = "Does hummingbirds migrate in winter?"
-    #user_q = "How fast do hummingbirds' wings beat per second?"
+    '''
+    TRAINING Code
+    '''
+    if do_training:
+      state = model.train_model(faqs)
+      model.final_weights = state.weights
+      
+      if report_training:
+        all_scores = state.get_scores(state.weights)
+        for ix, q_score_set in enumerate(all_scores):
+          dict_scores = sorted([(ascore, qnum) for qnum, ascore in q_score_set.items()], reverse=True)
+          print(state.best_choices[ix])
+          for pair in dict_scores:
+            print("%2d: %f" % (pair[1], pair[0]))
+          print()
+    
+    if do_main:      
+      faq_bow_feat = nltk_objects.NLTKFeatureExtraction(faqs)
+      faq_nlp_feat = model.get_faq_features(faqs)
 
-    if user_q == "" or user_q == None:
-        raise ValueError("Invalid question given. Exiting")
-        exit(1)
-    user_qa = [base_objects.QAPair(user_q, "")]
+      run_mrr(faq_bow_feat, CONFIG_ALGO_BOW)
+      run_mrr(faq_nlp_feat, CONFIG_ALGO_NLP)
+      #'''
+      #user_q = input("Input your question:")
+      #user_q = "when is hummingbird season"
+      user_q = "Does hummingbirds migrate in winter?"
+      #user_q = "How fast do hummingbirds' wings beat per second?"
 
-    run_userq(user_qa, faq_bow_feat, CONFIG_ALGO_BOW)
-    run_userq(user_qa, faq_nlp_feat, CONFIG_ALGO_NLP)
-    #'''
+      if user_q == "" or user_q == None:
+          raise ValueError("Invalid question given. Exiting")
+          exit(1)
+      user_qa = [base_objects.QAPair(user_q, "")]
+
+      run_userq(user_qa, faq_bow_feat, CONFIG_ALGO_BOW)
+      run_userq(user_qa, faq_nlp_feat, CONFIG_ALGO_NLP)
+      
 if __name__ == "__main__":
     main()

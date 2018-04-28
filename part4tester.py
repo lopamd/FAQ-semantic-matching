@@ -17,8 +17,8 @@ test_questions = [
   "Do hummingbirds reuse their nest?",
   "How much nectar does a hummingbird consume in a day?",
   "Do hummingbirds eat termites?",
-  "What is a hummingbird's lifecycle?"
-  "What do hummingbirds eat?",
+  "What is a hummingbird's lifecycle?"]
+'''"What do hummingbirds eat?",
   "When do hummingbirds nest?",
   "Does a hummingbird find flowers by smell?",
   "How fast do hummingbird wings beat? How do they move?",
@@ -42,7 +42,7 @@ test_questions = [
   "Are hummingbirds aggressive?",
   "What is the longest bill a hummingbird can have?",
   "Are hummingbirds found in the Eastern Hemisphere?",
-  "What threats are posed to hummingbirds today?"]
+  "What threats are posed to hummingbirds today?"]'''
 
 best_answers = [ix + 1 for ix in range(len(test_questions))]
   
@@ -218,3 +218,5 @@ def train_model(faqs):
 
   learned_weights = state.weights
   print(state.weights)
+  
+  return state
