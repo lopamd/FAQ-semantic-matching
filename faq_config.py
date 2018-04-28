@@ -25,6 +25,10 @@ class CSVFAQReader( FAQReader ):
 def getFAQs():
     faqreader = CSVFAQReader(nlp_config.faq_input_file)
     return faqreader.fetch()
+
+def getEvaluationQns():
+    faqreader = CSVFAQReader(nlp_config.evaluation_input_file)
+    return faqreader.fetch()
   
 #Usage:
 #import faq_config
