@@ -147,7 +147,7 @@ def load_all_depgraphs(tfes):
 def get_answers_features(qapairs):
   ret = []
   for qa in qapairs:
-    ret.append(TextFeatureExtraction(qa.answer))
+    ret.append(TextFeatureExtraction("%s %s" % (qa.question, qa.answer)))
   return ret
   
 def get_math_vectors(items_one, items_two, lt):
