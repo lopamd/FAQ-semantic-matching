@@ -43,7 +43,7 @@ def do_pos_tag(text):
   return sorted(nltk.pos_tag(nltk.word_tokenize(text)))
   
 class TextFeatureExtraction(object):
-  def __init__(self, text):
+  def __init__(self, text,qapair):
     self.tokens = do_tokenize(text)
     self.tokens_no_stops = do_tokenize_no_stops(self.tokens)
     self.lemmas = do_lemmatize(self.tokens)
@@ -68,7 +68,7 @@ class TextFeatureExtraction(object):
     
     self.wn_definitions = [] #just going to be a list of words
     self.wn_examples = [] #just going to be a list of words
-  
+    self.qapair = qapair
   def add_wordnet_features(self):
     #TODO: hack. do this better
     self.synsets = [s for s in self.synsets if s is not None]
@@ -147,7 +147,7 @@ def load_all_depgraphs(tfes):
 def get_answers_features(qapairs):
   ret = []
   for qa in qapairs:
-    ret.append(TextFeatureExtraction("%s %s" % (qa.question, qa.answer)))
+    ret.append(TextFeatureExtraction("%s %s" % (qa.question, qa.answer), qa))
   return ret
   
 def get_math_vectors(items_one, items_two, lt):
