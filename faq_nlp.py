@@ -75,7 +75,7 @@ def main():
     
       #user_q = input("Input your question:")
       #user_q = "when is hummingbird season"
-      user_q = "Does hummingbirds migrate in winter?"
+      user_q = "Do hummingbirds migrate in winter?"
       #user_q = "How fast do hummingbirds' wings beat per second?"
 
       if user_q == "" or user_q == None:
