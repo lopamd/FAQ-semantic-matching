@@ -154,51 +154,57 @@ def get_score_simple(arr1, arr2):
   math_vecs = b.get_math_vectors(arr1, arr2, lt_default)
   return b.cosine_similarity(math_vecs[0], math_vecs[1])
 
-faqs = faq_config.getFAQs()
 question = "What do hummingbirds eat?"#"What is the lifecycle of a hummingbird like as it grows from birth as a child to death?"#"Describe the hummingbird's lifecycle."#"What do hummingbirds eat?"#"At what speed do hummingbirds fly in the air?"
 
-as_features = b.get_answers_features(faqs)
-qs_features = [b.TextFeatureExtraction(q) for q in test_questions]
+def get_question_features(qfeat):
+  for qf in qfeat:
+    qf.synsets = lesk.get_synsets_from_features(qf)
+  for qf in qfeat:
+    qf.depgraphs = [dg for dg in dependency_parser.raw_parse(question)] #TODO: not the best way to do this. also iter to make an array
 
-#this should set up the synsets
-b.load_all_synsets(as_features)
-for qf in qs_features:
-  qf.synsets = lesk.get_synsets_from_features(qf)
+  for qf in qfeat:
+    qf.add_wordnet_features()
+    qf.add_depgraph_features()
 
-#this should set up dependency graphs
-b.load_all_depgraphs(as_features)
-for qf in qs_features:
-  qf.depgraphs = [dg for dg in dependency_parser.raw_parse(question)] #TODO: not the best way to do this. also iter to make an array
 
-for f in as_features:
-  f.add_wordnet_features()
-  f.add_depgraph_features()
-for qf in qs_features:
-  qf.add_wordnet_features()
-  qf.add_depgraph_features()
+def get_faq_features(faqs):
+  as_features = b.get_answers_features(faqs)
 
-feature_count = 19 #TODO: hardcoded
-learned_weights = [1] * feature_count
+  #this should set up the synsets
+  b.load_all_synsets(as_features)
 
-max_steps = 10000#25000
-state = State(qs_features, as_features, learned_weights, best_answers)#10)#11) #5)
-anneal = Annealer(neighbor, energy, probability, temperature)
-for k in range(max_steps):
-  t = anneal.temperature(k / max_steps)
-  new_weights = anneal.neighbor(state)
-  e_old = anneal.e(state, state.weights)
-  e_new = anneal.e(state, new_weights)
-  if anneal.p(e_old, e_new, t) >= random.random():
-    state.weights = new_weights
-    
-  if k % 20 == 0:
-    print("k: %5d, last energy: %f. weights = %s" % (k, e_old, state.weights)) #TODO: might not be e_old
+  #this should set up dependency graphs
+  b.load_all_depgraphs(as_features)
 
-learned_weights = state.weights
-all_scores = state.get_scores(learned_weights)
-for ix, q_score_set in enumerate(all_scores):
-  dict_scores = sorted([(ascore, qnum) for qnum, ascore in q_score_set.items()], reverse=True)
-  print(state.best_choices[ix])
-  for pair in dict_scores:
-    print("%2d: %f" % (pair[1], pair[0]))
-  print()
+  for f in as_features:
+    f.add_wordnet_features()
+    f.add_depgraph_features()
+
+  return as_features
+
+def train_model(faqs):
+  feature_count = 19 #TODO: hardcoded
+  learned_weights = [1] * feature_count
+  qs_features = [b.TextFeatureExtraction(q, base_objects.QAPair(q,"")) for q in test_questions]
+  get_question_features(qs_features)
+  get_faq_features(faqs)
+  '''
+  We train only once and save the weights
+  Uncomment this if you want to change algo and train again.
+  '''
+
+  max_steps = 1000#25000
+  state = State(qs_features, as_features, learned_weights, best_answers)#10)#11) #5)
+  anneal = Annealer(neighbor, energy, probability, temperature)
+  for k in range(max_steps):
+    t = anneal.temperature(k / max_steps)
+    new_weights = anneal.neighbor(state)
+    e_old = anneal.e(state, state.weights)
+    e_new = anneal.e(state, new_weights)
+    if anneal.p(e_old, e_new, t) >= random.random():
+      state.weights = new_weights
+      if k % 20 == 0:
+        print("k: %5d, last energy: %f. weights = %s" % (k, e_old, state.weights)) #TODO: might not be e_old
+
+    learned_weights = state.weights
+    print(state.weights)
