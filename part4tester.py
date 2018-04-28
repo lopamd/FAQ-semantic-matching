@@ -108,6 +108,7 @@ class State(object):
     self.best_choices = best_choices
     self.score_vectors = []
     
+    self.faq_feat = as_features
     for qf in qs_features:
       list_of_score_vectors = []
       for af in as_features:
@@ -139,7 +140,8 @@ class State(object):
       specific_q_scores = dict()
       for jx, subv in enumerate(sv):
         effective_score = b.score_features(subv, used_weights)
-        specific_q_scores[jx + 1] = effective_score
+        #specific_q_scores[jx + 1] = effective_score
+        specific_q_scores[self.faq_feat[jx].qapair] = effective_score
       scores.append(specific_q_scores)
     return scores
                       
