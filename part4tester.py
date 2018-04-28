@@ -4,6 +4,7 @@ import random
 import sys
 import lesk
 import nlp_config
+import base_objects
 from nltk.parse.stanford import StanfordDependencyParser
 
 test_questions = [
@@ -141,11 +142,20 @@ class State(object):
       specific_q_scores = dict()
       for jx, subv in enumerate(sv):
         effective_score = b.score_features(subv, used_weights)
-        #specific_q_scores[jx + 1] = effective_score
+        specific_q_scores[jx + 1] = effective_score
+      scores.append(specific_q_scores)
+    return scores
+ 
+  def get_final_scores(self, used_weights = None):
+    scores = []
+    for sv in self.score_vectors:
+      specific_q_scores = dict()
+      for jx, subv in enumerate(sv):
+        effective_score = b.score_features(subv, used_weights)
         specific_q_scores[self.faq_feat[jx].qapair] = effective_score
       scores.append(specific_q_scores)
     return scores
-                      
+ 
 def lt_default(a, b): return a < b
 
 def get_score_simple(arr1, arr2):
@@ -187,14 +197,14 @@ def train_model(faqs):
   learned_weights = [1] * feature_count
   qs_features = [b.TextFeatureExtraction(q, base_objects.QAPair(q,"")) for q in test_questions]
   get_question_features(qs_features)
-  get_faq_features(faqs)
+  faq_features = get_faq_features(faqs)
   '''
   We train only once and save the weights
   Uncomment this if you want to change algo and train again.
   '''
 
   max_steps = 1000#25000
-  state = State(qs_features, as_features, learned_weights, best_answers)#10)#11) #5)
+  state = State(qs_features, faq_features, learned_weights, best_answers)#10)#11) #5)
   anneal = Annealer(neighbor, energy, probability, temperature)
   for k in range(max_steps):
     t = anneal.temperature(k / max_steps)
@@ -206,5 +216,5 @@ def train_model(faqs):
       if k % 20 == 0:
         print("k: %5d, last energy: %f. weights = %s" % (k, e_old, state.weights)) #TODO: might not be e_old
 
-    learned_weights = state.weights
-    print(state.weights)
+  learned_weights = state.weights
+  print(state.weights)
