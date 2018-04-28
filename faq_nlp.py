@@ -71,6 +71,11 @@ def run_userq(user_qa, faq_feat, algoType):
 
     print_results(user_q, resultDict, algoType)
 
+def space_out():
+  print()
+  print()
+  print()
+    
 def main():
 
     print("****** Hummingbird FAQ engine powered by NLTK *********")
@@ -98,7 +103,11 @@ def main():
       faq_nlp_feat = model.get_faq_features(faqs)
 
       run_mrr(faq_bow_feat, CONFIG_ALGO_BOW)
+      
+      space_out()
+      
       run_mrr(faq_nlp_feat, CONFIG_ALGO_NLP)
+      
       #'''
       #user_q = input("Input your question:")
       #user_q = "when is hummingbird season"
@@ -110,7 +119,12 @@ def main():
           exit(1)
       user_qa = [base_objects.QAPair(user_q, "")]
 
+      space_out()
+      
       run_userq(user_qa, faq_bow_feat, CONFIG_ALGO_BOW)
+      
+      space_out()
+      
       run_userq(user_qa, faq_nlp_feat, CONFIG_ALGO_NLP)
       
 if __name__ == "__main__":
