@@ -4,13 +4,14 @@ import base_objects
 import operator
 
 from nlp_algo import BOWAlgorithm
+from nlp_eval import MRREvaluation
 
 RESULTS_TOPN = 10
+
 
 def print_results(user_q, resultDict):
     sortedResults = sorted(resultDict.items(), key=lambda x:x[1], reverse=True)
     count = 0
-
     print("***********************************************************************")
     print("Given user question: ", user_q)
     print("***********************************************************************")
@@ -19,6 +20,18 @@ def print_results(user_q, resultDict):
         if count < RESULTS_TOPN:
             print(qa_pair.answer,score)
             count = count + 1
+def print_eval_result(evalObj, algoType):
+
+    if algoType == 1:
+        algoName = "BagOfWords"
+    else:
+        algoName = "NLP Pipeline"
+    print("***********************************************************************")
+    print("MRR EVALUATION for algorithm: ", algoName)
+    print("***********************************************************************")
+    print (evalObj.get_rr())
+    print ('------------------------------------------------------------')
+    print ("Total MRR of the QA Set: ",evalObj.get_mrr())
 
 def main():
 
@@ -26,9 +39,12 @@ def main():
  
     faqs = faq_config.getFAQs()
     feature_extractor = nltk_objects.NLTKFeatureExtraction(faqs)
-    qatokens = feature_extractor.tokens
-    qabows = feature_extractor.bow
 
+    algoType = 1
+    evaluation = MRREvaluation(algoType, feature_extractor)
+    evaluation.computeResult()
+    print_eval_result(evaluation, algoType)
+    '''
     user_q = input("Input your question:")
     #user_q = "when is hummingbird season"
     #user_q = "Where do hummingbirds go in the winter?"
@@ -47,12 +63,14 @@ def main():
     #print(user_feat_extractor.bow)
 
     '''
-    BOW specific implementation.
+    #BOW specific implementation.
     '''
     bow_algo = BOWAlgorithm(user_q, user_feat_extractor, feature_extractor)
     resultDict = bow_algo._compute()
     print_results(user_q, resultDict)
     
+    '''
+
     #TODO: Now add the NLP engine algorithm
 
 if __name__ == "__main__":
