@@ -5,6 +5,7 @@ import operator
 
 from nlp_algo import BOWAlgorithm
 from nlp_eval import MRREvaluation
+from nlp_config import *
 import better_objects as b
 import part4tester as model
 
@@ -17,7 +18,7 @@ def print_results(user_q, resultDict, algoType):
     print("***********************************************************************")
     print("Given user question: ", user_q)
     print("***********************************************************************")
-    if (algoType == 1):
+    if (algoType == CONFIG_ALGO_BOW):
         print("Top 10 results from Bag of words algorithm are:")
     else:
         print("Top 10 results NLP Pipeline algorithm are:")
@@ -27,7 +28,7 @@ def print_results(user_q, resultDict, algoType):
             count = count + 1
 def print_eval_result(evalObj, algoType):
 
-    if algoType == 1:
+    if algoType == CONFIG_ALGO_BOW:
         algoName = "BagOfWords"
     else:
         algoName = "NLP Pipeline"
@@ -38,20 +39,51 @@ def print_eval_result(evalObj, algoType):
     print ('------------------------------------------------------------')
     print ("Total MRR of the QA Set: ",evalObj.get_mrr())
 
+def run_mrr(faq_feat,algoType):
+    evaluation = MRREvaluation(algoType, faq_feat)
+    evaluation.computeResult()
+    print_eval_result(evaluation, algoType)
+
+def run_userq(user_qa, faq_feat, algoType):
+
+    #FIXME: It has to be added to the empty list because nltk_object operates on the list
+    #Alt: Alternate approach. Only call __tokenize(). But move stops to a class variable.
+    user_q = user_qa[0].question
+    if (algoType == CONFIG_ALGO_BOW):
+        #BOW specific implementation.
+        uq_bow_feat = nltk_objects.NLTKFeatureExtraction(user_qa)
+        bow_algo = BOWAlgorithm(user_q, uq_bow_feat, faq_feat)
+        resultDict = bow_algo._compute()
+    else:
+        #NLP Pipeline specific
+        uq_nlp_feat = [b.TextFeatureExtraction(user_q, user_qa)]
+
+        '''
+        TRAINING Code
+        '''
+        #model.train_model(faqs)
+
+        '''
+        Testing code
+        '''
+
+        tstate = model.State(uq_nlp_feat, faq_feat, model.final_weights, None)
+        nlp_rdict = tstate.get_final_scores(model.final_weights)
+        resultDict = nlp_rdict[0]
+
+    print_results(user_q, resultDict, algoType)
+
 def main():
 
     print("****** Hummingbird FAQ engine powered by NLTK *********")
- 
+
     faqs = faq_config.getFAQs()
     faq_bow_feat = nltk_objects.NLTKFeatureExtraction(faqs)
     faq_nlp_feat = model.get_faq_features(faqs)
-    '''
-    algoType = 1
-    evaluation = MRREvaluation(algoType, feature_extractor)
-    evaluation.computeResult()
-    print_eval_result(evaluation, algoType)
-    '''
-    
+
+    run_mrr(faq_bow_feat, CONFIG_ALGO_BOW)
+    run_mrr(faq_nlp_feat, CONFIG_ALGO_NLP)
+    #'''
     #user_q = input("Input your question:")
     #user_q = "when is hummingbird season"
     user_q = "Does hummingbirds migrate in winter?"
@@ -60,36 +92,10 @@ def main():
     if user_q == "" or user_q == None:
         raise ValueError("Invalid question given. Exiting")
         exit(1)
- 
-    #FIXME: It has to be added to the empty list because nltk_object operates on the list
-    #Alt: Alternate approach. Only call __tokenize(). But move stops to a class variable.
-
     user_qa = [base_objects.QAPair(user_q, "")]
-    uq_bow_feat = nltk_objects.NLTKFeatureExtraction(user_qa)
-    uq_nlp_feat = [b.TextFeatureExtraction(user_q, user_qa)]
-    #print(user_feat_extractor.tokens)
-    #print(user_feat_extractor.bow)
 
-    #BOW specific implementation.
-    algoType = 1
-    bow_algo = BOWAlgorithm(user_q, uq_bow_feat, faq_bow_feat)
-    resultDict = bow_algo._compute()
-    print_results(user_q, resultDict,algoType)
- 
-    #NLP Pipeline specific
- 
-    '''
-    TRAINING Code
-    ''' 
-    #model.train_model(faqs)
-
-    '''
-    Testing code
-    '''
-    algoType = 2
-    tstate = model.State(uq_nlp_feat, faq_nlp_feat, model.final_weights, None)
-    nlp_rdict = tstate.get_final_scores(model.final_weights)
-    print_results(user_q, nlp_rdict[0], algoType)
-
+    run_userq(user_qa, faq_bow_feat, CONFIG_ALGO_BOW)
+    run_userq(user_qa, faq_nlp_feat, CONFIG_ALGO_NLP)
+    #'''
 if __name__ == "__main__":
     main()

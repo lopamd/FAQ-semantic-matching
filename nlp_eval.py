@@ -5,6 +5,8 @@ import operator
 
 from nlp_algo import BOWAlgorithm
 from collections import defaultdict
+import better_objects as b
+import part4tester as model
 
 TOPTEN_ANS = []
 
@@ -31,15 +33,16 @@ class Evaluation(object):
         for qns in eval_qns:
             TOPTEN_ANS.clear()
             user_qa = [base_objects.QAPair(qns.question, "")]
-            user_feat_extractor = nltk_objects.NLTKFeatureExtraction(user_qa)
 
             if self.aType == 1:
                 #BOW Type
+                user_feat_extractor = nltk_objects.NLTKFeatureExtraction(user_qa)
                 bow_algo = BOWAlgorithm(user_qa, user_feat_extractor, self.fext)
                 resultDict = bow_algo._compute()
             else:
-                print ("Not supported Yet!!!")
-                exit(1)
+                uq_nlp_feat = [b.TextFeatureExtraction(qns.question, qns)]
+                tstate = model.State(uq_nlp_feat, self.fext, model.final_weights, None)
+                resultDict = tstate.get_final_scores(model.final_weights)[0]
             self.get_topNResults(resultDict, 10)
             index_ = TOPTEN_ANS.index(qns.answer) if qns.answer in TOPTEN_ANS else -1
             print ("Question is: ",qns.question)
