@@ -45,6 +45,23 @@ test_questions = [
   "What threats are posed to hummingbirds today?"]'''
 
 best_answers = [ix + 1 for ix in range(len(test_questions))]
+
+'''
+test_questions = [
+  "What is the length of time that hummingbirds will be alive?",
+  "How many genera or sorts of hummingbirds can one find?",
+  "Is the hue of the larynx influenced by external factors?",
+  "What do they use their appendiges for and how do they move around?",
+  "How little can hummingbirds get and what is the length?",
+  "How much plumage do these birds have and is that amount high?",
+  "What which muscle has the greatest percentage of weight?",
+  "Is it true that a hummingbird lays the tiniest of ova?",
+  "What is the rate of breath intake for hummingbirds?",
+  "What is the farthest a hummingbird flies when it migrates?"
+]
+
+best_answers = [16 + ix for ix in range(10)]
+'''
   
 final_weights = [0.952926181485045, 0.9840099977685615, 1.0525210561258025, 1.051562827464642, 0.9532682412234448, 0.9520219911127934, 0.969117385075304, 0.9546066017400465, 1.013167700035129, 0.961371876331083, 0.9305470016082897, 0.9575960964407408, 1.0226004255054897, 0.9374376883134267, 1.0016046379331374, 1.0733357426136956, 0.9578154508191105, 0.9684130290554245, 0.9229061653172881]
 #TODO: this should be in a central place
