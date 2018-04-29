@@ -11,9 +11,11 @@ import part4tester as model
 
 RESULTS_TOPN = 10
 
-do_training = False
-report_training = False
-do_main = True
+master_training = False
+
+do_training = master_training
+report_training = master_training
+do_main = not master_training
 
 def print_results(user_q, resultDict, algoType):
     sortedResults = sorted(resultDict.items(), key=lambda x:x[1], reverse=True)
