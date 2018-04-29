@@ -11,7 +11,7 @@ import numpy as np
 
 brown_ic = wordnet_ic.ic('ic-brown.dat')
 
-test_questions = [
+'''test_questions = [
   "When is hummingbird season?",
   "Where do hummingbirds go in the winter?",
   "Where do hummingbirds live?",
@@ -22,7 +22,7 @@ test_questions = [
   "How much nectar does a hummingbird consume in a day?",
   "Do hummingbirds eat termites?",
   "What is a hummingbird's lifecycle?"]
-'''"What do hummingbirds eat?",
+"What do hummingbirds eat?",
   "When do hummingbirds nest?",
   "Does a hummingbird find flowers by smell?",
   "How fast do hummingbird wings beat? How do they move?",
@@ -46,11 +46,10 @@ test_questions = [
   "Are hummingbirds aggressive?",
   "What is the longest bill a hummingbird can have?",
   "Are hummingbirds found in the Eastern Hemisphere?",
-  "What threats are posed to hummingbirds today?"]'''
+  "What threats are posed to hummingbirds today?"]
 
-best_answers = [ix + 1 for ix in range(len(test_questions))]
+best_answers = [ix + 1 for ix in range(len(test_questions))]'''
 
-'''
 test_questions = [
   "What is the length of time that hummingbirds will be alive?",
   "How many genera or sorts of hummingbirds can one find?",
@@ -65,17 +64,12 @@ test_questions = [
 ]
 
 best_answers = [16 + ix for ix in range(10)]
-'''
   
 #final_weights =             [0.952926181485045,      0.9840099977685615, 1.0525210561258025,  1.051562827464642,   0.9532682412234448, 0.9520219911127934, 
 #                             0.969117385075304,      0.9546066017400465, 1.013167700035129,   0.961371876331083,   0.9305470016082897, 0.9575960964407408, 
 #                             1.0226004255054897,     0.9374376883134267, 1.0016046379331374,  1.0733357426136956,  0.9578154508191105, 0.9684130290554245, 
 #                             0.9229061653172881]
-#not overfit final_weights = [0.6911500010268629,     0.875678658447373,  1.162122041198649,   1.2292630528738813,  0.5251180138675038,   0.5810477163963434, 
-#                             0.012372877570106517,   0.8156304084789193, 0.8917677665853175,  0.10444716164587915, 0.5033900545952501,   0.03509674711148438, 
-#                             1.3054917153807546,     0.0490396070708341, 0.09729218449738365, 1.778839262953036,   0.000743946017588541, 0.056383120769699334, 
-#                             -0.0007811945603587471]
-final_weights = [0.788869599639297, 1.078014637709285, 1.0005490174085232, 1.120291929242625, 0.6569221944139803, 0.6517768787727969, 0.698694107948965, 0.9588163444734824, 1.339542547764566, 0.6882589326776006, 0.7001205390293421, 0.6475316992807993, 1.4377375936505312, 0.6570927217382662, 0.6527311670217246, 1.3671962223477911, 0.5684867825707811, 0.6962084180478862, 0.702095071282418, 1.2969304904469936] #jcn
+final_weights = [0.7490120039192232, 0.5473259606903345, 0.7201503022341168, 1.1039197157559848, 0.5381058876841468, 0.543439633895209, 0.6933861804185498, 0.32936031784864706, 0.5162382838863742, 0.619586214260726, 1.1842453368513972, 0.40318774451844286, 1.531198544790128, 0.44753838998751644, 0.5750546156748142, 1.529495292317564, 0.5975599793129092, 0.5244313444345968, 0.5864861033072415, 0.4288517647857363, 0.45599724465641506]
 
 #TODO: this should be in a central place
 dependency_parser = StanfordDependencyParser(path_to_jar=nlp_config.path_to_stanford_jar, path_to_models_jar=nlp_config.path_to_stanford_models_jar)
@@ -90,7 +84,7 @@ class Annealer(object):
 
 max_temp = 100    
 
-def neighbor(s, adj_min = 0.001, adj_max = 0.005):
+def neighbor(s, adj_min = 0.001, adj_max = 0.01):
   #random index, random minor adjustment
   idx = random.randrange(len(s.weights))
   adj = random.uniform(adj_min, adj_max)
@@ -134,6 +128,24 @@ def energy(state, weights):
   #this is probably too naive, but we will try it.
   #return (1 - scores[state.best_answer])# * slot / len(x)
 
+def get_jcn_similarity(feat_a, feat_b, pos):
+  jcn_feature = []
+  for qsyn in feat_a.synsets:
+    if qsyn.pos() == pos:
+      for asyn in feat_b.synsets:
+        if asyn.pos() == pos:
+          similarity = qsyn.jcn_similarity(asyn, brown_ic)
+          if similarity > 1: #identical words are 1e+300 and it's causing infiniti errors
+            similarity = 1 #1 is the greatest a similarity can be because of the normalization
+          jcn_feature.append(similarity)
+  jcn_normalize = [1] * len(jcn_feature)
+  
+  jcn_result = 0
+  if len(jcn_feature) > 0:
+    jcn_result = np.linalg.norm(jcn_feature) / np.linalg.norm(jcn_normalize)
+    
+  return jcn_result
+  
 class State(object):
   def __init__(self, qs_features, as_features, weights, best_choices):
     self.weights = weights #never used
@@ -144,22 +156,6 @@ class State(object):
     for qf in qs_features:
       list_of_score_vectors = []
       for af in as_features:
-      
-        jcn_feature = []
-        for qfsyn in qf.synsets:
-          if qfsyn.pos() == 'v':
-            for afsyn in af.synsets:
-              if afsyn.pos() == 'v':
-                similarity = qfsyn.jcn_similarity(afsyn, brown_ic)
-                if similarity > 1: #identical words are 1e+300 and it's causing infiniti errors
-                  similarity = 1 #1 is the greatest a similarity can be because of the normalization
-                jcn_feature.append(similarity)
-        jcn_normalize = [1] * len(jcn_feature)
-        
-        jcn_result = 0
-        if len(jcn_feature) > 0:
-          jcn_result = np.linalg.norm(jcn_feature) / np.linalg.norm(jcn_normalize)
-      
         qa_score_vector = [get_score_simple(qf.tokens, af.tokens),
                            get_score_simple(qf.tokens_no_stops, af.tokens_no_stops),
                            get_score_simple(qf.lemmas, af.lemmas),
@@ -179,7 +175,8 @@ class State(object):
                            get_score_simple(qf.wn_examples, af.wn_examples),
                            get_score_simple(qf.depgraph_deps, af.depgraph_deps),
                            get_score_simple(qf.depgraph_rels, af.depgraph_rels),
-                           jcn_result]
+                           get_jcn_similarity(qf, af, 'v'),
+                           get_jcn_similarity(qf, af, 'n')]
         list_of_score_vectors.append(qa_score_vector)
       self.score_vectors.append(list_of_score_vectors)
       
@@ -240,7 +237,7 @@ def get_faq_features(faqs):
   return as_features
 
 def train_model(faqs):
-  feature_count = 20 #TODO: hardcoded
+  feature_count = 21 #TODO: hardcoded
   learned_weights = [1] * feature_count
   qs_features = [b.TextFeatureExtraction(q, base_objects.QAPair(q,"")) for q in test_questions]
   get_question_features(qs_features)
@@ -250,7 +247,7 @@ def train_model(faqs):
   Uncomment this if you want to change algo and train again.
   '''
 
-  max_steps = 10000#25000
+  max_steps = 7500#25000
   state = State(qs_features, faq_features, learned_weights, best_answers)#10)#11) #5)
   anneal = Annealer(neighbor, energy, probability, temperature)
   for k in range(max_steps):
