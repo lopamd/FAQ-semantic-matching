@@ -32,3 +32,9 @@ The Stanford files are not included in this release. They need to be manually do
 pip3 install scipy
 pip3 install sklearn
 pip3 install numpy
+
+3. Install wordnet_ic
+
+python3
+>>> import nltk
+>>> nltk.download('wordnet_ic')
