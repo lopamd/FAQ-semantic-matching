@@ -109,25 +109,28 @@ def main():
       space_out()
       
       run_mrr(faq_nlp_feat, CONFIG_ALGO_NLP)
-      
-      #'''
-      user_q = input("Input your question:")
-      #user_q = "when is hummingbird season"
-      #user_q = "Do hummingbirds migrate in winter?"
-      #user_q = "How fast do hummingbirds' wings beat per second?"
 
-      if user_q == "" or user_q == None:
-          raise ValueError("Invalid question given. Exiting")
-          exit(1)
-      user_qa = [base_objects.QAPair(user_q, "")]
+      print("You can enter question multiple times. Enter quit or Ctrl+c to quit")
+      while 1:      
+          #'''
 
-      space_out()
-      
-      run_userq(user_qa, faq_bow_feat, CONFIG_ALGO_BOW)
-      
-      space_out()
-      
-      run_userq(user_qa, faq_nlp_feat, CONFIG_ALGO_NLP)
+          space_out()
+          user_q = input("Enter your question or 'quit' to Exit : ")
+          #user_q = "when is hummingbird season"
+          #user_q = "Do hummingbirds migrate in winter?"
+          #user_q = "How fast do hummingbirds' wings beat per second?"
+
+          if user_q == "" or user_q == None:
+              raise ValueError("Invalid question given. Exiting")
+              exit(1)
+          elif user_q == "quit":
+              print("Thank you for trying out our FAQ Engine..Exiting")
+              exit(1) 
+          user_qa = [base_objects.QAPair(user_q, "")]
+          space_out()
+          run_userq(user_qa, faq_bow_feat, CONFIG_ALGO_BOW)
+          space_out()
+          run_userq(user_qa, faq_nlp_feat, CONFIG_ALGO_NLP)
       
 if __name__ == "__main__":
     main()
