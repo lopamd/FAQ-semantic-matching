@@ -1,0 +1,136 @@
+Question is:  What is the rate of flight of a hummingbird in the air?
+Correct answer at index:  -1
+--------------------------------------------
+Question is:  Can hummingbirds harm a flower?
+Correct answer at index:  -1
+--------------------------------------------
+Question is:  Are nests used again?
+Correct answer at index:  -1
+--------------------------------------------
+Question is:  Might a hummingbird use a termite or an insect as a food source?
+Correct answer at index:  -1
+--------------------------------------------
+Question is:  During which seasons do hummingbirds settle down in their nests?
+Correct answer at index:  -1
+--------------------------------------------
+Question is:  Do scents help hummingbirds find a flower?
+Correct answer at index:  0
+--------------------------------------------
+Question is:  When migrating, will hummingbirds perch on different types of birds for a continuous trip with no effort?
+Correct answer at index:  2
+--------------------------------------------
+Question is:  What scent can hummingbirds detect?
+Correct answer at index:  -1
+--------------------------------------------
+Question is:  How is food consumed and what body parts are used?
+Correct answer at index:  -1
+--------------------------------------------
+Question is:  What continents are hummingbirds located in?
+Correct answer at index:  -1
+--------------------------------------------
+***********************************************************************
+MRR EVALUATION for algorithm:  BagOfWords
+***********************************************************************
+What is the rate of flight of a hummingbird in the air? 0
+Can hummingbirds harm a flower? 0
+Are nests used again? 0
+Might a hummingbird use a termite or an insect as a food source? 0
+During which seasons do hummingbirds settle down in their nests? 0
+Do scents help hummingbirds find a flower? 1.0
+When migrating, will hummingbirds perch on different types of birds for a continuous trip with no effort? 0.3333333333333333
+What scent can hummingbirds detect? 0
+How is food consumed and what body parts are used? 0
+What continents are hummingbirds located in? 0
+None
+------------------------------------------------------------
+Total MRR of the QA Set:  0.13333333333333333
+
+
+
+Question is:  What is the rate of flight of a hummingbird in the air?
+Correct answer at index:  -1
+--------------------------------------------
+Question is:  Can hummingbirds harm a flower?
+Correct answer at index:  0
+--------------------------------------------
+Question is:  Are nests used again?
+Correct answer at index:  2
+--------------------------------------------
+Question is:  Might a hummingbird use a termite or an insect as a food source?
+Correct answer at index:  -1
+--------------------------------------------
+Question is:  During which seasons do hummingbirds settle down in their nests?
+Correct answer at index:  5
+--------------------------------------------
+Question is:  Do scents help hummingbirds find a flower?
+Correct answer at index:  4
+--------------------------------------------
+Question is:  When migrating, will hummingbirds perch on different types of birds for a continuous trip with no effort?
+Correct answer at index:  1
+--------------------------------------------
+Question is:  What scent can hummingbirds detect?
+Correct answer at index:  5
+--------------------------------------------
+Question is:  How is food consumed and what body parts are used?
+Correct answer at index:  -1
+--------------------------------------------
+Question is:  What continents are hummingbirds located in?
+Correct answer at index:  0
+--------------------------------------------
+***********************************************************************
+MRR EVALUATION for algorithm:  NLP Pipeline
+***********************************************************************
+What is the rate of flight of a hummingbird in the air? 0
+Can hummingbirds harm a flower? 1.0
+Are nests used again? 0.3333333333333333
+Might a hummingbird use a termite or an insect as a food source? 0
+During which seasons do hummingbirds settle down in their nests? 0.16666666666666666
+Do scents help hummingbirds find a flower? 0.2
+When migrating, will hummingbirds perch on different types of birds for a continuous trip with no effort? 0.5
+What scent can hummingbirds detect? 0.16666666666666666
+How is food consumed and what body parts are used? 0
+What continents are hummingbirds located in? 1.0
+None
+------------------------------------------------------------
+Total MRR of the QA Set:  0.33666666666666667
+You can enter question multiple times. Enter quit or Ctrl+c to quit
+
+
+OUTPUT FOR BAG OF WORDS AND NLP PIPELINE
+-----------------------------------------
+
+Enter your question or 'quit' to Exit :  What is the smallest hummingbird?
+
+
+
+***********************************************************************
+Given user question:   What is the smallest hummingbird?
+***********************************************************************
+Top 10 results from Bag of words algorithm are:
+Two white eggs are laid, which despite being the smallest of all bird eggs, are in fact large relative to the adult hummingbird's size. Incubation lasts 14 to 23 days, depending on the species, ambient temperature, and female attentiveness to the nest. The mother feeds her nestlings on small arthropods and nectar by inserting her bill into the open mouth of a nestling, and then regurgitating the food into its crop. 1.0
+Hummingbirds drink nectar from hummingbird feeders and flowers. They eat small soft insects and bugs. 0.8660254037844388
+The calliope hummingbird is the smallest bird species in North America and measures just 3 inches long. The bee hummingbird is the smallest hummingbird species in the world and measures 2.25 inches long. It is only found in Cuba. 0.8660254037844387
+A hummingbird is born from an egg that is the size of a very small pea. They will spend about three weeks in the nest. When they are old enough, they will fly away and not return to the nest. If they can survive the first year of life, they will live for approximately 5 years. 0.8164965809277261
+It depends on the size of the bird. The largest, the Giant Hummingbird, has a wingbeat rate of 10-15 per second. The fastest recorded rate was about 80 per second, on a tiny Amethyst Woodstar, and the slightly smaller Bee Hummingbird - the world's smallest bird - may have an even faster rate. Common small North American hummingbirds like the Ruby-throated and Rufous average around 53 per second in normal flight. 0.8164965809277261
+A hummingbird's brilliant throat color is not caused by feather pigmentation, but rather by iridescence in the arrangement of the feathers. Light level, moisture, angle of viewing, wear and tear and other factors all influence just how bright and colorful the throat may appear. 0.8164965809277261
+Roughly 25-30 percent of a hummingbird's weight is in its pectoral muscles. These are the broad chest muscles principally responsible for flight. 0.8164965809277261
+Hummingbirds lay the smallest eggs of all birds. Their eggs measure less than one-half inch long but may represent as much as 10 percent of the mother's weight at the time the eggs are laid. A hummingbird egg is smaller than a jelly bean! 0.8164965809277261
+The bill of the aptly named sword-billed hummingbird, found in the Andes Mountains, can reach up to 4 inches long, and it can be so heavy that the birds may perch holding their bills straight up. These birds hold the record for the longest bill relative to overall body size of any bird in the world. 0.8164965809277261
+Habitat loss and destruction are the hummingbird's main threats. As hummingbirds are often specially adapted to each unique habitat, each species of hummingbird currently listed as vulnerable or endangered on the IUCN red list are all threatened due to habitat destruction and loss. The earth's changing temperatures due to climate change are affecting hummingbird migratory patterns. Different species are being spotted well outside there normal range. Due to this, it may be harder for them to find food. 0.7537783614444091
+
+
+
+***********************************************************************
+Given user question:   What is the smallest hummingbird?
+***********************************************************************
+Top 10 results NLP Pipeline algorithm are:
+The calliope hummingbird is the smallest bird species in North America and measures just 3 inches long. The bee hummingbird is the smallest hummingbird species in the world and measures 2.25 inches long. It is only found in Cuba. 0.22146510468263292
+Roughly 25-30 percent of a hummingbird's weight is in its pectoral muscles. These are the broad chest muscles principally responsible for flight. 0.14792395072018055
+A hummingbird's heart is relatively the largest of all animals at 2.5% of its body weight. 0.14669732076752692
+The bill of the aptly named sword-billed hummingbird, found in the Andes Mountains, can reach up to 4 inches long, and it can be so heavy that the birds may perch holding their bills straight up. These birds hold the record for the longest bill relative to overall body size of any bird in the world. 0.1374193980410424
+A hummingbird is born from an egg that is the size of a very small pea. They will spend about three weeks in the nest. When they are old enough, they will fly away and not return to the nest. If they can survive the first year of life, they will live for approximately 5 years. 0.13460544821792658
+Hummingbirds that migrate will go anywhere from the southern United States to Mexico, Panama, and the Yucatan Peninsula for the winter. 0.13365426941499078
+The male hummingbird is not involved in raising young, and will often find another mate after the young are hatched. 0.13157449360610846
+Hummingbirds lay the smallest eggs of all birds. Their eggs measure less than one-half inch long but may represent as much as 10 percent of the mother's weight at the time the eggs are laid. A hummingbird egg is smaller than a jelly bean! 0.13113615553593913
+It depends on the size of the bird. The largest, the Giant Hummingbird, has a wingbeat rate of 10-15 per second. The fastest recorded rate was about 80 per second, on a tiny Amethyst Woodstar, and the slightly smaller Bee Hummingbird - the world's smallest bird - may have an even faster rate. Common small North American hummingbirds like the Ruby-throated and Rufous average around 53 per second in normal flight. 0.12855890696454408
+Two white eggs are laid, which despite being the smallest of all bird eggs, are in fact large relative to the adult hummingbird's size. Incubation lasts 14 to 23 days, depending on the species, ambient temperature, and female attentiveness to the nest. The mother feeds her nestlings on small arthropods and nectar by inserting her bill into the open mouth of a nestling, and then regurgitating the food into its crop. 0.12343282060334987
